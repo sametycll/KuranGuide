@@ -1,0 +1,186 @@
+﻿@model KuranGuide.Application.DTOs.General.SearchResponseDto
+
+@{
+    ViewData["Title"] = $"Arama Sonuçları: {ViewBag.Query}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string query = ViewBag.Query as string;
+}
+
+@section Styles {
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+}
+
+<main class="max-w-5xl mx-auto px-6 py-12">
+
+    <div class="mb-10">
+        <p class="text-gri text-lg mb-1">Arama Sonuçları</p>
+        <h1 class="font-serif text-3xl md:text-4xl text-antrasit">
+            "<span class="text-yaprak">@query</span>" için bulunan sonuçlar
+        </h1>
+    </div>
+
+    @if (!Model.HasResults)
+    {
+        <div class="bg-gray-50 rounded-2xl p-12 text-center border border-gray-100">
+            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm text-gray-400">
+                <i class="ph ph-magnifying-glass text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Sonuç Bulunamadı</h3>
+            <p class="text-gray-500">
+                Farklı bir anahtar kelime deneyebilir veya yazım hatası olup olmadığını kontrol edebilirsiniz.
+            </p>
+            <a href="/" class="inline-block mt-6 text-yaprak font-semibold hover:underline">Anasayfaya Dön</a>
+        </div>
+    }
+    else
+    {
+        <div class="space-y-12">
+
+            @if (Model.Sureler.Any())
+            {
+                <section>
+                    <h3 class="flex items-center gap-2 text-lg font-bold text-antrasit mb-4 border-b pb-2">
+                        <i class="ph ph-book-open text-yaprak"></i> Sureler
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach (var item in Model.Sureler)
+                        {
+                            <a href="@item.Url" class="block bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-yaprak/30 transition group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-serif text-xl text-antrasit group-hover:text-yaprak transition">@item.Title</h4>
+                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">@item.BadgeText</span>
+                                </div>
+                                <p class="text-sm text-gray-500">@item.Content</p>
+                            </a>
+                        }
+                    </div>
+                </section>
+            }
+
+            @if (Model.Temalar.Any())
+            {
+                <section>
+                    <h3 class="flex items-center gap-2 text-lg font-bold text-antrasit mb-4 border-b pb-2">
+                        <i class="ph ph-hash text-altin"></i> İlgili Konular
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        @foreach (var item in Model.Temalar)
+                        {
+                            <a href="@item.Url" class="flex items-center gap-3 bg-white px-5 py-3 rounded-full border border-gray-200 hover:border-altin hover:bg-altin/5 transition shadow-sm">
+                                <span class="font-medium text-gray-700">@item.Title</span>
+                                <i class="ph ph-caret-right text-gray-400"></i>
+                            </a>
+                        }
+                    </div>
+                </section>
+            }
+
+            @if (Model.Ayetler.Any())
+            {
+                <section>
+                    <h3 class="flex items-center gap-2 text-lg font-bold text-antrasit mb-4 border-b pb-2">
+                        <i class="ph ph-quotes text-yaprak"></i> Ayetler
+                    </h3>
+
+                    <div class="flex flex-col gap-4">
+                        @for (int i = 0; i < Model.Ayetler.Count; i++)
+                        {
+                            var item = Model.Ayetler[i];
+                            // İlk 5 tanesi normal, sonrakilere 'hidden' ve özel sınıf ekliyoruz
+                            var displayClass = i >= 5 ? "hidden hidden-ayet" : "";
+
+                            <a href="@item.Url" class="@displayClass block bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition duration-300 group">
+                                <div class="mb-3">
+                                    <span class="text-xs font-bold tracking-wider text-yaprak uppercase bg-yaprak/10 px-3 py-1 rounded-md">
+                                        @item.Title
+                                    </span>
+                                </div>
+                                <p class="font-serif text-lg text-antrasit/90 leading-relaxed group-hover:text-black transition">
+                                    "@item.Content"
+                                </p>
+                            </a>
+                        }
+                    </div>
+
+                    @if (Model.Ayetler.Count > 5)
+                    {
+                        <div class="text-center mt-6">
+                            <button onclick="showMore('ayet')" id="btn-more-ayet"
+                                    class="px-6 py-2 rounded-full border border-gray-200 text-gray-600 font-medium hover:border-yaprak hover:text-yaprak hover:bg-yaprak/5 transition-all text-sm">
+                                Daha Fazla Ayet Göster (@(Model.Ayetler.Count - 5)) <i class="ph ph-caret-down ml-1"></i>
+                            </button>
+                        </div>
+                    }
+                </section>
+            }
+
+            @if (Model.Hadisler.Any())
+            {
+                <section>
+                    <h3 class="flex items-center gap-2 text-lg font-bold text-antrasit mb-4 border-b pb-2">
+                        <i class="ph ph-chats-circle text-blue-500"></i> Hadisler
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @for (int i = 0; i < Model.Hadisler.Count; i++)
+                        {
+                            var item = Model.Hadisler[i];
+                            var displayClass = i >= 5 ? "hidden hidden-hadis" : "";
+
+                            <a href="@item.Url" class="@displayClass block bg-white p-6 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-md transition">
+                                <div class="flex items-start gap-4">
+                                    <i class="ph ph-quotes text-3xl text-gray-200"></i>
+                                    <div>
+                                        <p class="text-gray-700 italic mb-3 line-clamp-3">"@item.Content"</p>
+                                        <span class="text-xs font-semibold text-gray-400 uppercase">@item.BadgeText</span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+
+                    @if (Model.Hadisler.Count > 5)
+                    {
+                        <div class="text-center mt-6">
+                            <button onclick="showMore('hadis')" id="btn-more-hadis"
+                                    class="px-6 py-2 rounded-full border border-gray-200 text-gray-600 font-medium hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all text-sm">
+                                Daha Fazla Hadis Göster (@(Model.Hadisler.Count - 5)) <i class="ph ph-caret-down ml-1"></i>
+                            </button>
+                        </div>
+                    }
+                </section>
+            }
+
+        </div>
+    }
+</main>
+
+@section Scripts {
+    <script>
+        // type: 'ayet' veya 'hadis'
+        function showMore(type) {
+            // Gizli elemanları seç
+            const hiddenItems = document.querySelectorAll(`.hidden-${type}`);
+
+            // Hepsinden 'hidden' sınıfını kaldır ve animasyon ekle
+            hiddenItems.forEach(item => {
+                item.classList.remove('hidden');
+                item.classList.add('fade-in'); // CSS animasyonu
+            });
+
+            // Butonu gizle
+            const btn = document.getElementById(`btn-more-${type}`);
+            if(btn) {
+                btn.style.display = 'none';
+            }
+        }
+    </script>
+}

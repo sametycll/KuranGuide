@@ -1,0 +1,11 @@
+D:\MyRepo\KuranGuide\KuranGuide.Domain\bin\Debug\net8.0\KuranGuide.Domain.deps.json
+D:\MyRepo\KuranGuide\KuranGuide.Domain\bin\Debug\net8.0\KuranGuide.Domain.dll
+D:\MyRepo\KuranGuide\KuranGuide.Domain\bin\Debug\net8.0\KuranGuide.Domain.pdb
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.AssemblyInfoInputs.cache
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.AssemblyInfo.cs
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.csproj.CoreCompileInputs.cache
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.dll
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\refint\KuranGuide.Domain.dll
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.pdb
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\ref\KuranGuide.Domain.dll

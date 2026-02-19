@@ -1,0 +1,124 @@
+﻿@model KuranGuide.Web.Models.HadisViewModel
+
+@{
+    ViewData["Title"] = "Yeni Hadis Ekle";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="flex items-center gap-4 mb-8">
+    <a href="/Admin/AdminHadis/Index" class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-[#5A7D7C] hover:border-[#5A7D7C] transition-all">
+        <i class="ph ph-arrow-left text-xl"></i>
+    </a>
+    <div>
+        <h1 class="text-2xl font-bold text-[#2C3E50]">Yeni Hadis Ekle</h1>
+        <p class="text-sm text-gray-500">Kütüphaneye yeni bir hadis-i şerif ekleyin.</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="lg:col-span-2">
+        <form method="post" class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm relative">
+            <div class="space-y-6">
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">İlgili Tema</label>
+                    <div class="relative">
+                        <select asp-for="TemaId" asp-items="ViewBag.Temalar" required
+                                class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all appearance-none cursor-pointer">
+                            <option value="" required selected>Tema Seçiniz...</option>
+                        </select>
+                        <i class="ph ph-caret-down absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kaynak (Ravi)</label>
+                    <input asp-for="Kaynak" type="text" id="kaynakInput" placeholder="Örn: Buhari, Tirmizi, Müslim..." required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Hadis Metni</label>
+                    <textarea asp-for="Metin" rows="4" id="metinInput" required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all font-serif italic text-lg resize-none leading-relaxed"
+                              placeholder="Hadis metnini buraya giriniz..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kısa Açıklama</label>
+                    <textarea asp-for="Aciklama" rows="3" required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all resize-none"
+                              placeholder="Varsa hadis ile ilgili ek bilgi..."></textarea>
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <a href="/Admin/AdminHadis/Index" class="px-6 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition font-medium">İptal</a>
+                    <button type="submit" class="bg-[#5A7D7C] text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-[#5A7D7C]/20 hover:bg-[#2C3E50] hover:scale-[1.02] active:scale-95 transition-all duration-200">
+                        Kaydet
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="lg:col-span-1">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 pl-1">Canlı Önizleme</h3>
+
+        <div class="bg-white rounded-3xl border border-[#D4AF37]/30 p-8 shadow-sm relative overflow-hidden group text-center">
+
+            <div class="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]"></div>
+
+            <div class="w-12 h-12 mx-auto bg-[#D4AF37]/10 rounded-full flex items-center justify-center text-[#D4AF37] mb-5">
+                <i class="ph ph-quotes text-2xl"></i>
+            </div>
+
+            <span class="block text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">
+                Hadis-i Şerif
+            </span>
+
+            <p id="metinPreview" class="font-serif text-xl leading-relaxed text-[#2C3E50] italic mb-6">
+                Buraya yazacağınız hadis metni kart üzerinde bu şekilde görünecektir.
+            </p>
+
+            <div class="w-16 h-px bg-gray-200 mx-auto mb-4"></div>
+
+            <p id="kaynakPreview" class="text-sm font-bold text-gray-500">
+                Kaynak...
+            </p>
+
+            <div class="mt-8 pt-4 border-t border-gray-50 flex justify-center text-xs text-gray-300 font-medium">
+                Kart Görünümü
+            </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 text-blue-800 p-4 rounded-xl text-sm border border-blue-100 flex gap-3 items-start">
+            <i class="ph ph-info text-lg mt-0.5"></i>
+            <div>
+                <strong>Bilgi:</strong> Hadis kartlarında tasarım dili olarak Ayetlerden farklılaşmak için <strong>Altın (#D4AF37)</strong> tonları kullanılır.
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const kaynakInput = document.getElementById('kaynakInput');
+        const metinInput = document.getElementById('metinInput');
+
+        const kaynakPreview = document.getElementById('kaynakPreview');
+        const metinPreview = document.getElementById('metinPreview');
+
+        kaynakInput.addEventListener('input', function() {
+            kaynakPreview.textContent = this.value || 'Kaynak...';
+        });
+
+        metinInput.addEventListener('input', function() {
+            metinPreview.textContent = this.value ? `"${this.value}"` : '...';
+        });
+    </script>
+}
+

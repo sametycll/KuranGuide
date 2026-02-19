@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* Arkaplan */
+        body {
+            background:
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%),
+                #F7F7F4;
+        }
+
+        /* Bilgi Kartları */
+        .info-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #D4AF37; /* Altın */
+            box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Dekoratif Arkaplan İkonu */
+        .card-bg-icon {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(90, 125, 124, 0.03);
+            pointer-events: none;
+            z-index: 0;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover .card-bg-icon {
+            color: rgba(212, 175, 55, 0.05);
+            transform: scale(1.1);
+        }
+    </style>
+}
+
+<section class="max-w-5xl mx-auto px-4 py-16">
+
+    <div class="text-center mb-16 max-w-3xl mx-auto">
+        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-yaprak to-[#4A6A69] rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-yaprak/20 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <i class="ph ph-book-open-text text-4xl text-white"></i>
+        </div>
+
+        <h1 class="font-serif text-4xl md:text-5xl text-antrasit mb-6 font-medium tracking-tight">
+            Yolculuğumuz ve Amacımız
+        </h1>
+
+        <p class="text-lg text-gray-600 leading-relaxed font-light">
+            <span class="font-bold text-yaprak">Rehber</span>, modern insanın karmaşık hayatında Kur'an ve Sünnet'in aydınlatıcı mesajlarına en hızlı, en doğru ve en estetik yoldan ulaşmasını sağlamak amacıyla geliştirilmiş dijital bir manevi asistan projesidir.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+
+        <div class="info-card relative overflow-hidden group">
+            <i class="ph ph-compass card-bg-icon"></i>
+            <div class="relative z-10">
+                <div class="w-12 h-12 rounded-full bg-yaprak/10 text-yaprak flex items-center justify-center mb-6 group-hover:bg-yaprak group-hover:text-white transition-colors">
+                    <i class="ph ph-target text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-antrasit mb-3">Misyonumuz</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Karmaşık arama motorları arasında kaybolmadan; ayet, hadis ve İslami temaları konu bazlı olarak sunmak ve doğru bilgiye ulaşımı kolaylaştırmak.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-card relative overflow-hidden group">
+            <i class="ph ph-paint-brush-broad card-bg-icon"></i>
+            <div class="relative z-10">
+                <div class="w-12 h-12 rounded-full bg-altin/10 text-altin flex items-center justify-center mb-6 group-hover:bg-altin group-hover:text-white transition-colors">
+                    <i class="ph ph-eye text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-antrasit mb-3">Estetik ve Sadelik</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Maneviyatın ruhuna uygun, gözü yormayan, "Glassmorphism" ve modern tipografi ile harmanlanmış, odaklanmayı artıran bir okuma deneyimi.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-card relative overflow-hidden group">
+            <i class="ph ph-code card-bg-icon"></i>
+            <div class="relative z-10">
+                <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                    <i class="ph ph-device-mobile text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-antrasit mb-3">Her An Yanınızda</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    İster masaüstünde ister mobilde; responsive yapısı sayesinde dilediğiniz her yerde favori ayetlerinize ve temalarınıza erişim imkanı.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="relative bg-antrasit rounded-3xl p-10 md:p-14 text-center overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+             style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;">
+        </div>
+
+        <div class="relative z-10 max-w-2xl mx-auto">
+            <i class="ph ph-quotes-fill text-4xl text-altin mb-6 inline-block"></i>
+
+            <p class="font-serif text-2xl md:text-3xl text-white leading-relaxed mb-6 italic">
+                "Sizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir."
+            </p>
+
+            <div class="w-16 h-1 bg-altin mx-auto rounded-full mb-4"></div>
+
+            <span class="text-gray-400 text-sm font-bold tracking-widest uppercase">Hadis-i Şerif (Buhârî)</span>
+        </div>
+    </div>
+
+    <div class="text-center mt-16 flex justify-center gap-6">
+        <a href="mailto:iletisim@rehberapp.com" class="flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-200 text-antrasit hover:border-yaprak hover:text-yaprak transition-all shadow-sm hover:shadow-md">
+            <i class="ph ph-envelope-simple text-lg"></i>
+            <span>Bize Ulaşın</span>
+        </a>
+        <a href="/" class="flex items-center gap-2 px-6 py-3 rounded-full bg-yaprak text-white hover:bg-yaprak/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-yaprak/20">
+            <i class="ph ph-arrow-left text-lg"></i>
+            <span>Uygulamaya Dön</span>
+        </a>
+    </div>
+
+</section>

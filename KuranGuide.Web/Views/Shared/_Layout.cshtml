@@ -1,0 +1,458 @@
+﻿@{
+    Layout = null;
+}
+@{
+    var isLoggedIn = Context.Request.Cookies["jwt"] != null;
+    var userEmail = Context.Request.Cookies["email"];
+    var fullName = Context.Request.Cookies["fullname"] ?? userEmail?.Split('@')[0] ?? "Misafir";
+    
+    // Şu anki sayfanın Anasayfa olup olmadığını kontrol et (Navbar stili için)
+    var isHome = ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && 
+                 ViewContext.RouteData.Values["action"]?.ToString() == "Index";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Rehber</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yaprak: '#5A7D7C',
+                        altin: '#D4AF37',
+                        antrasit: '#2C3E50',
+                        gri: '#95A5A6',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Lora', 'serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAFAFA;
+            /* Premium ince desen */
+            background-image: radial-gradient(#2C3E50 0.5px, transparent 0.5px);
+            background-size: 40px 40px;
+        }
+
+        /* Navbar Geçiş Animasyonu */
+        #mainNav {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Sayfa Scroll edildiğinde Navbar'ın alacağı hal */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.90) !important;
+            backdrop-filter: blur(12px) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        /* Favori Kalp Animasyonu */
+        @@keyframes fav-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.35); }
+            100% { transform: scale(1); }
+        }
+        .fav-animate { animation: fav-pop 0.25s ease-out; }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body class="text-antrasit font-sans antialiased min-h-screen flex flex-col">
+
+    <nav id="mainNav" class="fixed top-0 left-0 w-full z-50 py-6 px-4 md:px-8 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <a href="/" class="group flex items-center gap-2.5">
+                <div class="w-10 h-10 bg-gradient-to-br from-yaprak to-[#3F605F] text-white rounded-xl flex items-center justify-center shadow-lg shadow-yaprak/20 group-hover:scale-105 transition-transform">
+                    <i class="ph ph-book-open-text text-2xl"></i>
+                </div>
+                <span class="text-2xl font-serif font-bold text-antrasit tracking-tight">
+                    Rehber<span class="text-altin">.</span>
+                </span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 bg-white/50 backdrop-blur-sm px-8 py-2.5 rounded-full border border-white/40 shadow-sm">
+                <a href="/" class="text-sm font-medium text-antrasit hover:text-yaprak transition-colors relative group">
+                    Ana Sayfa
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yaprak transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/Temalar" class="text-sm font-medium text-antrasit hover:text-yaprak transition-colors relative group">
+                    Temalar
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yaprak transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/Sure" class="text-sm font-medium text-antrasit hover:text-yaprak transition-colors relative group">
+                    Kur'an
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yaprak transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/Hadis" class="text-sm font-medium text-antrasit hover:text-yaprak transition-colors relative group">
+                    Hadisler
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yaprak transition-all group-hover:w-full"></span>
+                </a>
+                 <a href="/Favori" class="text-sm font-medium text-antrasit hover:text-yaprak transition-colors relative group">
+                    Favoriler
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yaprak transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-antrasit hover:bg-white shadow-sm border border-gray-100 transition">
+                    <i class="ph ph-list text-xl"></i>
+                </button>
+
+                <div class="hidden md:flex items-center gap-3">
+                    @if (!isLoggedIn)
+                    {
+                        <a href="/Auth/Login" class="text-sm font-semibold text-antrasit hover:text-yaprak px-3 py-2 transition-colors">
+                            Giriş
+                        </a>
+                        <a href="/Auth/Register" class="bg-antrasit text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-yaprak hover:shadow-lg hover:shadow-yaprak/20 transition-all transform hover:-translate-y-0.5">
+                            Kayıt Ol
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="relative">
+                            <button id="profileBtn" class="flex items-center gap-2 pl-1 pr-4 py-1 bg-white/80 backdrop-blur rounded-full border border-gray-200 hover:border-yaprak/50 transition-all shadow-sm">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yaprak to-[#4A6A69] text-white flex items-center justify-center text-sm font-bold shadow-inner">
+                                    @fullName.Substring(0, 1).ToUpper()
+                                </div>
+                                <span class="text-sm font-medium text-antrasit max-w-[100px] truncate">@fullName</span>
+                                <i class="ph ph-caret-down text-gray-400 text-xs"></i>
+                            </button>
+
+                            <div id="profileMenu" class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-gray-100 transform opacity-0 scale-95 pointer-events-none transition-all duration-200 origin-top-right">
+                                <div class="px-5 py-4 border-b border-gray-50">
+                                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Hesap</p>
+                                    <p class="text-sm font-medium text-antrasit truncate">@userEmail</p>
+                                </div>
+                                <div class="p-2 flex flex-col gap-1">
+                                    <a href="/Profil" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 rounded-xl hover:bg-gray-50 hover:text-yaprak transition-colors">
+                                        <i class="ph ph-user-gear text-lg"></i> Profil Ayarları
+                                    </a>
+                                    <a href="/Favori" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 rounded-xl hover:bg-gray-50 hover:text-yaprak transition-colors">
+                                        <i class="ph ph-heart text-lg"></i> Favorilerim
+                                    </a>
+                                </div>
+                                <div class="p-2 border-t border-gray-50">
+                                    <a href="/Auth/Logout" class="flex items-center gap-3 px-3 py-2 text-sm text-red-500 rounded-xl hover:bg-red-50 transition-colors">
+                                        <i class="ph ph-sign-out text-lg"></i> Çıkış Yap
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-white/95 backdrop-blur-xl transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-gray-100">
+             <span class="text-2xl font-serif font-bold text-antrasit tracking-tight">
+                Rehber<span class="text-altin">.</span>
+            </span>
+            <button id="closeMenuBtn" class="w-10 h-10 rounded-full bg-gray-50 text-antrasit flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors">
+                <i class="ph ph-x text-xl"></i>
+            </button>
+        </div>
+
+        <div class="flex-grow overflow-y-auto px-6 py-8 flex flex-col gap-1">
+            <a href="/" class="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 text-xl font-serif text-antrasit transition-colors">
+                <span>Ana Sayfa</span>
+                <i class="ph ph-house text-gray-300"></i>
+            </a>
+            <a href="/Temalar" class="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 text-xl font-serif text-antrasit transition-colors">
+                <span>Temalar</span>
+                <i class="ph ph-hash text-gray-300"></i>
+            </a>
+            <a href="/Sure" class="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 text-xl font-serif text-antrasit transition-colors">
+                <span>Kur'an-ı Kerim</span>
+                <i class="ph ph-book-open text-gray-300"></i>
+            </a>
+            <a href="/Hadis" class="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 text-xl font-serif text-antrasit transition-colors">
+                <span>Hadisler</span>
+                <i class="ph ph-quotes text-gray-300"></i>
+            </a>
+             <a href="/Favorilerim" class="flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 text-xl font-serif text-antrasit transition-colors">
+                <span>Favorilerim</span>
+                <i class="ph ph-heart text-gray-300"></i>
+            </a>
+        </div>
+
+        <div class="p-6 bg-gray-50/50 border-t border-gray-100">
+            @if (!isLoggedIn)
+            {
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="/Auth/Login" class="py-3.5 bg-white border border-gray-200 text-antrasit rounded-xl text-center font-semibold text-lg shadow-sm">Giriş</a>
+                    <a href="/Auth/Register" class="py-3.5 bg-antrasit text-white rounded-xl text-center font-semibold text-lg shadow-lg">Kayıt Ol</a>
+                </div>
+            }
+            else
+            {
+                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm mb-4 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-yaprak text-white flex items-center justify-center font-bold">
+                        @fullName.Substring(0, 1).ToUpper()
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-sm font-bold text-antrasit">@fullName</p>
+                        <p class="text-xs text-gray-400">@userEmail</p>
+                    </div>
+                </div>
+                <a href="/Auth/Logout" class="block w-full py-3 bg-red-50 text-red-500 rounded-xl text-center font-semibold">Çıkış Yap</a>
+            }
+        </div>
+    </div>
+
+
+    @if (TempData["Success"] != null)
+    {
+        <div id="alertBox" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-white border border-green-200 text-green-700 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce">
+            <i class="ph ph-check-circle text-2xl"></i>
+            <span class="font-medium">@TempData["Success"]</span>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div id="alertBox" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-white border border-red-200 text-red-700 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce">
+            <i class="ph ph-warning-circle text-2xl"></i>
+            <span class="font-medium">@TempData["Error"]</span>
+        </div>
+    }
+
+
+    <main class="flex-grow pt-24 min-h-screen">
+        @RenderBody()
+    </main>
+
+
+    <footer class="w-full py-12 border-t border-gray-100 bg-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-6 flex justify-center items-center gap-2 opacity-50 grayscale hover:grayscale-0 transition-all">
+                 <i class="ph ph-book-open-text text-2xl"></i>
+                 <span class="font-serif font-bold text-lg">Rehber</span>
+            </div>
+            <p class="text-gri text-sm font-light mb-6">&copy; 2026 Rehber Uygulaması. Manevi dünyanıza ışık tutun.</p>
+            <div class="flex justify-center gap-6 text-sm text-gray-400 font-medium">
+                <a href="~/Home/About" class="hover:text-antrasit transition-colors">Hakkımızda</a>
+                <a href="~/Home/Privacy" class="hover:text-antrasit transition-colors">Gizlilik</a>
+                <a href="~/Home/Contact" class="hover:text-antrasit transition-colors">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+
+    @RenderSection("Scripts", required: false)
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ==========================================
+            // 1. NAVBAR SCROLL EFFECT
+            // ==========================================
+            const navbar = document.getElementById('mainNav');
+
+            // Sayfa yüklendiğinde kontrol et
+            if (window.scrollY > 10 || window.location.pathname !== '/') {
+                navbar.classList.add('nav-scrolled');
+            }
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    if (window.location.pathname === '/') {
+                        navbar.classList.remove('nav-scrolled');
+                    }
+                }
+            });
+
+
+            // ==========================================
+            // 2. DROPDOWN & MOBILE MENU
+            // ==========================================
+            const profileBtn = document.getElementById('profileBtn');
+            const profileMenu = document.getElementById('profileMenu');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const body = document.body;
+
+            // Desktop Profile Dropdown
+            if (profileBtn && profileMenu) {
+                profileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isClosed = profileMenu.classList.contains('opacity-0');
+                    if (isClosed) {
+                        profileMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                        profileMenu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                    } else {
+                        profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                        profileMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!profileMenu.contains(e.target) && !profileBtn.contains(e.target)) {
+                        profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                        profileMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    }
+                });
+            }
+
+            // Mobile Menu Drawer
+            function toggleMobileMenu(show) {
+                if (show) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.add('translate-x-full');
+                    body.style.overflow = '';
+                }
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', () => toggleMobileMenu(false));
+
+            if (mobileMenu) {
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => toggleMobileMenu(false));
+                });
+            }
+        });
+
+        // ==========================================
+        // 3. ALERT BOX (Server Side TempData)
+        // ==========================================
+        const alertBox = document.getElementById("alertBox");
+        if (alertBox) {
+            setTimeout(() => {
+                alertBox.style.opacity = "0";
+                alertBox.style.transform = "translate(-50%, -20px)";
+                alertBox.style.transition = "all 0.5s";
+            }, 3000);
+            setTimeout(() => alertBox.remove(), 3500);
+        }
+
+        // ==========================================
+        // 4. FAVORİ İŞLEMLERİ VE TOAST MESAJI
+        // ==========================================
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".favori-toggle");
+            if (!btn) return;
+
+            e.preventDefault(); // Sayfanın zıplamasını engelle
+            const icon = btn.querySelector("i");
+            const type = btn.getAttribute("data-type");
+            const refId = parseInt(btn.getAttribute("data-refid"));
+
+            // Tıklama Animasyonu
+            icon.classList.remove("fav-animate");
+            void icon.offsetWidth; // Reflow
+            icon.classList.add("fav-animate");
+
+            fetch("/Favori/AjaxToggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type: type, refId: refId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                        return;
+                    }
+
+                    if (data.added === true) {
+                        // Eklendi
+                        icon.classList.add("ph-fill", "text-red-600");
+                        icon.classList.remove("text-gray-300", "text-red-300");
+
+                        // TOAST MESAJINI GÖSTER
+                        showFavoriToast("Favorilere eklendi", false);
+                    }
+                    else if (data.added === false) {
+                        // Çıkarıldı
+                        icon.classList.remove("ph-fill", "text-red-600");
+                        // Sayfasına göre varsayılan renk değişebilir, genelde griye dönüyoruz
+                        icon.classList.add("text-gray-300");
+
+                        // TOAST MESAJINI GÖSTER
+                        showFavoriToast("Favorilerden çıkarıldı", true);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    showFavoriToast("Bir hata oluştu", true);
+                });
+        });
+
+        // TOAST MESAJI OLUŞTURMA FONKSİYONU
+        function showFavoriToast(message, isRemove) {
+            // Varsa eski toast'ı sil
+            const oldToast = document.getElementById("favToast");
+            if (oldToast) oldToast.remove();
+
+            // Yeni Toast Elementi
+            const box = document.createElement("div");
+            box.id = "favToast";
+
+            // Tasarım (Navbar'ın üstünde olması için z-[100])
+            let bgClass = isRemove ? "bg-red-50 text-red-600 border-red-100" : "bg-white text-yaprak border-gray-100";
+            let iconClass = isRemove ? "ph-trash" : "ph-heart";
+
+            box.className = `fixed top-24 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-full shadow-2xl border flex items-center gap-3 transition-all duration-500 transform translate-y-10 opacity-0 ${bgClass}`;
+
+            box.innerHTML = `
+                        <i class="ph ${iconClass} text-xl"></i>
+                        <span class="font-medium text-sm font-sans">${message}</span>
+                    `;
+
+            document.body.appendChild(box);
+
+            // Görünür yap (Animasyonlu giriş)
+            requestAnimationFrame(() => {
+                box.classList.remove("translate-y-10", "opacity-0");
+            });
+
+            // 2 saniye sonra kaybol
+            setTimeout(() => {
+                box.classList.add("-translate-y-5", "opacity-0");
+            }, 2000);
+
+            // DOM'dan sil
+            setTimeout(() => {
+                box.remove();
+            }, 2500);
+        }
+    </script>
+
+
+</body>
+</html>

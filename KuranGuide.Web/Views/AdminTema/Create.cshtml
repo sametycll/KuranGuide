@@ -1,0 +1,128 @@
+﻿@model KuranGuide.Application.DTOs.Tema.TemaCreateDto
+
+@{
+    ViewData["Title"] = "Yeni Tema Ekle";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="flex items-center gap-4 mb-8">
+    <a href="/Admin/AdminTema/Index" class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-[#5A7D7C] hover:border-[#5A7D7C] transition-all">
+        <i class="ph ph-arrow-left text-xl"></i>
+    </a>
+    <div>
+        <h1 class="text-2xl font-bold text-[#2C3E50]">Yeni Tema Ekle</h1>
+        <p class="text-sm text-gray-500">Yeni bir konu başlığı oluşturun.</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2">
+        <form method="post" class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-[#5A7D7C]/5 rounded-full -mr-10 -mt-10 pointer-events-none"></div>
+
+            <div class="space-y-6 relative z-10">
+                
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Tema Adı</label>
+                    <input asp-for="TemaAdi" type="text" placeholder="Örn: Sabır, Şükür, Namaz..." required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">
+                        İkon Sınıfı 
+                        <span class="text-xs font-normal text-gray-400 ml-1">(Phosphor Icons)</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i id="iconPreview" class="ph ph-hash text-xl text-[#5A7D7C]"></i>
+                        </div>
+                        <input asp-for="Icon" id="iconInput" type="text" placeholder="ph-star, ph-heart..." 
+                               class="w-full pl-12 pr-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all font-mono text-sm text-gray-600" />
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">
+                        İkon listesine <a href="https://phosphoricons.com/" target="_blank" class="text-[#5A7D7C] hover:underline">buradan</a> bakabilirsiniz. Sadece sınıf adını yazın (örn: <code>ph-sun</code>).
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kısa Açıklama</label>
+                    <textarea asp-for="Aciklama" rows="3" placeholder="Bu tema hakkında kısa bir açıklama..." required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Anahtar Kelimeler</label>
+                    <input asp-for="AnahtarKelimeler" type="text" placeholder="Arama için virgülle ayırın..." required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all" />
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <a href="/admin/tema" class="px-6 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition font-medium">İptal</a>
+                    
+                    <button type="submit" class="bg-[#5A7D7C] text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-[#5A7D7C]/20 hover:bg-[#2C3E50] hover:scale-[1.02] active:scale-95 transition-all duration-200">
+                        Kaydet
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="lg:col-span-1">
+        <div class="bg-white border border-[#5A7D7C]/20 rounded-3xl p-8 relative overflow-hidden shadow-sm">
+            
+            <div class="absolute top-0 right-0 w-24 h-24 bg-[#5A7D7C]/5 rounded-bl-full -mr-4 -mt-4"></div>
+
+            <div class="relative z-10">
+                <div class="w-12 h-12 bg-[#5A7D7C]/10 rounded-xl flex items-center justify-center mb-6 text-[#5A7D7C]">
+                    <i class="ph ph-lightbulb text-2xl"></i>
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3 text-[#2C3E50]">İpuçları</h3>
+                
+                <ul class="space-y-4 text-sm text-gray-600">
+                    <li class="flex gap-3">
+                        <i class="ph ph-check-circle text-[#5A7D7C] text-lg mt-0.5"></i>
+                        <span>
+                            <strong class="text-[#2C3E50] block mb-1">İkon Seçimi</strong>
+                            Temayı en iyi anlatan, basit ve anlaşılır ikonlar tercih edin.
+                        </span>
+                    </li>
+                    <li class="flex gap-3">
+                        <i class="ph ph-check-circle text-[#5A7D7C] text-lg mt-0.5"></i>
+                        <span>
+                            <strong class="text-[#2C3E50] block mb-1">Anahtar Kelimeler</strong>
+                            Kullanıcıların arama yaparken aklına gelebilecek eş anlamlı kelimeleri virgülle ayırarak girin.
+                        </span>
+                    </li>
+                     <li class="flex gap-3">
+                        <i class="ph ph-check-circle text-[#5A7D7C] text-lg mt-0.5"></i>
+                        <span>
+                            <strong class="text-[#2C3E50] block mb-1">Açıklama</strong>
+                            Kısa ve öz bir açıklama, kullanıcının içeriği anlamasına yardımcı olur.
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // İkon önizleme scripti
+        const iconInput = document.getElementById('iconInput');
+        const iconPreview = document.getElementById('iconPreview');
+
+        iconInput.addEventListener('input', function() {
+            const val = this.value;
+            // Eski classları temizle ama 'ph' ve boyut classlarını koru
+            iconPreview.className = 'ph text-xl text-[#5A7D7C] ' + (val ? val : 'ph-hash');
+        });
+    </script>
+}

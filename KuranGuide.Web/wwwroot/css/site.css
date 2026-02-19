@@ -1,0 +1,29 @@
+body {
+    background: #FAFAFA;
+}
+
+.glass-card {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+}
+
+.input-shadow {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.tag {
+    background: white;
+    border: 1px solid #eee;
+    padding: 6px 16px;
+    font-size: 15px;
+    border-radius: 20px;
+    transition: .2s;
+}
+
+    .tag:hover {
+        border-color: #5A7D7C;
+        color: #5A7D7C;
+    }

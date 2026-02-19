@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "_AdminLayout";
+    var temaCount = ViewBag.TemaCount;
+    var ayetCount = ViewBag.AyetCount;
+    var hadisCount = ViewBag.HadisCount;
+    var lastAyetler = ViewBag.LastAyetler as List<dynamic>;
+    var lastHadisler = ViewBag.LastHadisler as List<dynamic>;
+}
+
+<div class="mb-10">
+    <h1 class="text-3xl font-semibold text-antrasit">Dashboard</h1>
+    <p class="text-gray-500">Hoş geldin, içerikleri buradan yönetebilirsin.</p>
+</div>
+
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+    <!-- Temalar -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+        <div class="w-14 h-14 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center">
+            <i class="ph ph-shapes text-3xl"></i>
+        </div>
+        <div>
+            <p class="text-gray-500 text-sm">Toplam Tema</p>
+            <p class="text-2xl font-bold">@temaCount</p>
+        </div>
+    </div>
+
+    <!-- Ayet -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+        <div class="w-14 h-14 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center">
+            <i class="ph ph-book-open-text text-3xl"></i>
+        </div>
+        <div>
+            <p class="text-gray-500 text-sm">Toplam Ayet</p>
+            <p class="text-2xl font-bold">@ayetCount</p>
+        </div>
+    </div>
+
+    <!-- Hadis -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+        <div class="w-14 h-14 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
+            <i class="ph ph-scroll text-3xl"></i>
+        </div>
+        <div>
+            <p class="text-gray-500 text-sm">Toplam Hadis</p>
+            <p class="text-2xl font-bold">@hadisCount</p>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Entries -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Latest Ayet -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <h2 class="text-lg font-semibold text-antrasit mb-4 flex items-center gap-2">
+            <i class="ph ph-book-open text-xl text-emerald-500"></i> Son Eklenen Ayetler
+        </h2>
+
+        @if (ViewBag.LastAyetler != null)
+        {
+            <ul class="space-y-3">
+                @foreach (var a in ViewBag.LastAyetler)
+                {
+                    <li class="p-3 bg-gray-50 rounded-xl border border-gray-200">
+                        <a href="/Ayet/Detay/@a.id"
+                           class="font-medium text-antrasit hover:text-yaprak">
+                            @a.sureNo. Sûre, @a.ayetNo
+                        </a>
+                        <p class="text-sm text-gray-500">@a.meal</p>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-gray-500 text-sm">Henüz ayet eklenmemiş.</p>
+        }
+    </div>
+
+    <!-- Latest Hadis -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <h2 class="text-lg font-semibold text-antrasit mb-4 flex items-center gap-2">
+            <i class="ph ph-scroll text-xl text-amber-500"></i> Son Eklenen Hadisler
+        </h2>
+
+        @if (ViewBag.LastHadisler != null)
+        {
+            <ul class="space-y-3">
+                @foreach (var h in ViewBag.LastHadisler)
+                {
+                    <li class="p-3 bg-gray-50 rounded-xl border border-gray-200">
+                        <p class="font-medium text-antrasit">@h.metin</p>
+                        <p class="text-sm text-gray-500">@h.kaynak</p>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-gray-500 text-sm">Henüz hadis eklenmemiş.</p>
+        }
+    </div>
+
+</div>

@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+    // Mevcut controller adını yakalayıp menüde aktif class'ı vermek için
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Admin Panel</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@@phosphor-icons/web"></script>
+
+    <style>
+        body {
+            background-color: #F3F4F6; /* content background */
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #1F2937; /* antrasit */
+        }
+
+        .sidebar a {
+            transition: 0.2s ease;
+        }
+
+            .sidebar a:hover {
+                background-color: rgba(255, 255, 255, 0.06);
+            }
+
+        .active-menu {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body class="flex">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar text-gray-300 h-screen fixed left-0 top-0 flex flex-col">
+      
+        <!-- Logo -->
+        <div class="px-6 py-6 flex items-center gap-3 border-b border-gray-700">
+            <i class="ph ph-book-open-text text-3xl text-altin"></i>
+            <span class="font-semibold text-lg text-white">KuranGuide Admin</span>
+        </div>
+
+        <!-- MENU -->
+        <nav class="flex-1 flex flex-col py-4">
+
+            <a href="/Admin"
+               class="flex items-center gap-3 px-6 py-3 hover:text-white hover:bg-white/10">
+                <i class="ph ph-gauge text-xl"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/Admin/AdminTema/Index"
+               class="flex items-center gap-3 px-6 py-3 hover:text-white hover:bg-white/10">
+                <i class="ph ph-shapes text-xl"></i>
+                <span>Temalar</span>
+            </a>
+
+            <a href="/Admin/AdminAyet/Index"
+               class="flex items-center gap-3 px-6 py-3 hover:text-white hover:bg-white/10">
+                <i class="ph ph-book-open-text text-xl"></i>
+                <span>Ayet Yönetimi</span>
+            </a>
+
+            <a href="/Admin/AdminHadis/Index"
+               class="flex items-center gap-3 px-6 py-3 hover:text-white hover:bg-white/10">
+                <i class="ph ph-scroll text-xl"></i>
+                <span>Hadis Yönetimi</span>
+            </a>
+
+            <a href="/Admin/AdminKullanici/Index"
+               class="flex items-center gap-3 px-6 py-3 hover:text-white hover:bg-white/10">
+                <i class="ph ph-users text-xl"></i>
+                <span>Kullanıcılar</span>
+            </a>
+        </nav>
+       
+        <!-- Logout -->
+        <div class="border-t border-gray-700 px-6 py-4">
+            <a href="/Auth/Logout"
+               class="flex items-center gap-3 px-4 py-2 rounded-lg text-red-400 hover:bg-red-500/10 hover:text-red-300">
+                <i class="ph ph-sign-out text-xl"></i>
+                <span>Çıkış Yap</span>
+            </a>
+        </div>
+    </aside>
+   
+    <!-- CONTENT -->
+    <main class="ml-[260px] w-full min-h-screen p-8">
+       
+        @RenderBody()
+    </main>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+

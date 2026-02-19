@@ -1,0 +1,15 @@
+﻿namespace KuranGuide.Application.DTOs.Hadis
+{
+    public class HadisDto
+    {
+        public int Id { get; set; }
+        public string Kaynak { get; set; }
+        public string Metin { get; set; }
+        public string? Aciklama { get; set; }
+
+
+        public int? TemaId { get; set; }
+        public string? TemaAdi { get; set; }
+        public string? TemaAciklama { get; set; }
+    }
+}

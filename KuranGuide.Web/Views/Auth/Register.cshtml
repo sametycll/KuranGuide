@@ -1,0 +1,60 @@
+﻿@model KuranGuide.Web.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<section class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md bg-white/80 backdrop-blur-md border border-gray-100
+                shadow-[0_10px_40px_-20px_rgba(0,0,0,0.08)] rounded-3xl p-10">
+
+        <div class="text-center mb-8">
+            <h2 class="font-serif text-3xl text-antrasit mb-2">Kayıt Ol</h2>
+            <p class="text-gri text-sm">Aramıza katılın ve rehberinize erişin</p>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-100"></div>
+
+        <form method="post" action="/Auth/Register">
+
+            <div class="flex gap-4 mb-5">
+                <div class="w-1/2">
+                    <label class="block text-sm mb-1 text-antrasit font-semibold">Ad</label>
+                    <input asp-for="Ad" class="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-yaprak/40 focus:border-yaprak transition bg-white" placeholder="Ahmet" />
+                    <span asp-validation-for="Ad" class="text-xs text-red-500 mt-1"></span>
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-sm mb-1 text-antrasit font-semibold">Soyad</label>
+                    <input asp-for="Soyad" class="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-yaprak/40 focus:border-yaprak transition bg-white" placeholder="Yılmaz" />
+                    <span asp-validation-for="Soyad" class="text-xs text-red-500 mt-1"></span>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-sm mb-1 text-antrasit font-semibold">E-Posta</label>
+                <input asp-for="Email" class="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-yaprak/40 focus:border-yaprak transition bg-white" placeholder="ornek@mail.com" />
+                <span asp-validation-for="Email" class="text-xs text-red-500 mt-1"></span>
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-sm mb-1 text-antrasit font-semibold">Şifre</label>
+                <input asp-for="Password" type="password" class="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-yaprak/40 focus:border-yaprak transition bg-white" placeholder="En az 6 karakter, 1 büyük harf, 1 sayı" />
+                <span asp-validation-for="Password" class="text-xs text-red-500 mt-1"></span>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-sm mb-1 text-antrasit font-semibold">Şifre Tekrar</label>
+                <input asp-for="ConfirmPassword" type="password" class="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-yaprak/40 focus:border-yaprak transition bg-white" placeholder="Şifrenizi doğrulayın" />
+                <span asp-validation-for="ConfirmPassword" class="text-xs text-red-500 mt-1"></span>
+            </div>
+
+            <button class="w-full bg-yaprak text-white py-3.5 rounded-xl text-lg hover:bg-yaprak/90 transition shadow-md shadow-yaprak/20">
+                Kayıt Ol
+            </button>
+
+            <p class="text-center text-sm text-gri mt-6">
+                Zaten hesabın var mı?
+                <a href="/Auth/Login" class="text-yaprak font-medium hover:underline">Giriş Yap</a>
+            </p>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,140 @@
+﻿@model KuranGuide.Web.Models.TemaViewModel
+
+@{
+    ViewData["Title"] = "Tema Düzenle";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="flex items-center gap-4 mb-8">
+    <a href="/Admin/AdminTema/Index" class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-[#5A7D7C] hover:border-[#5A7D7C] transition-all">
+        <i class="ph ph-arrow-left text-xl"></i>
+    </a>
+    <div>
+        <h1 class="text-2xl font-bold text-[#2C3E50]">Temayı Düzenle</h1>
+        <p class="text-sm text-gray-500">"@Model.TemaAdi" temasını güncelliyorsunuz.</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2">
+        <form method="post" class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm relative">
+            
+            <input type="hidden" asp-for="Id" />
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Tema Adı</label>
+                    <input asp-for="TemaAdi" type="text" id="titleInput" required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all font-medium" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">İkon Sınıfı</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i id="iconPreviewMain" class="ph @Model.Icon text-xl text-[#5A7D7C]"></i>
+                        </div>
+                        <input asp-for="Icon" id="iconInput" type="text"
+                               class="w-full pl-12 pr-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all font-mono text-sm text-gray-600" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kısa Açıklama</label>
+                    <textarea asp-for="Aciklama" rows="3" id="descInput" required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Anahtar Kelimeler</label>
+                    <input asp-for="AnahtarKelimeler" type="text" required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all" />
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    
+                    <a href="/Admin/AdminTema/Delete?id=@Model.Id" onclick="return confirm('Silmek istediğinize emin misiniz?')" 
+                       class="text-red-500 hover:text-red-700 text-sm font-medium px-4 py-2 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2">
+                        <i class="ph ph-trash"></i> Temayı Sil
+                    </a>
+                    
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                         <a href="/Admin/AdminTema" class="px-6 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition font-medium text-center flex-1 sm:flex-none">İptal</a>
+                        
+                        <button type="submit" class="bg-[#5A7D7C] text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-[#5A7D7C]/20 hover:bg-[#2C3E50] hover:scale-[1.02] active:scale-95 transition-all duration-200 flex-1 sm:flex-none">
+                            Değişiklikleri Kaydet
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="lg:col-span-1">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 pl-1">Canlı Önizleme</h3>
+        
+        <div class="bg-white rounded-3xl border border-[#5A7D7C]/20 p-8 text-center shadow-sm relative overflow-hidden group">
+            
+            <div class="absolute top-0 left-0 w-full h-1 bg-[#5A7D7C]"></div>
+            
+            <div class="w-16 h-16 mx-auto bg-gray-50 text-[#5A7D7C] rounded-full flex items-center justify-center text-3xl mb-4 shadow-inner border border-gray-100 group-hover:bg-[#5A7D7C] group-hover:text-white transition-colors duration-300">
+                <i id="previewIcon" class="ph @Model.Icon"></i>
+            </div>
+            
+            <h3 id="previewTitle" class="font-serif text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#5A7D7C] transition-colors">
+                @Model.TemaAdi
+            </h3>
+            
+            <p id="previewDesc" class="text-sm text-gray-500 line-clamp-3 leading-relaxed">
+                @Model.Aciklama
+            </p>
+
+            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-xs text-gray-400 font-medium">
+                Bu kart web sitesinde böyle görünecek
+            </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 text-blue-700 p-4 rounded-xl text-sm flex gap-3 items-start">
+            <i class="ph ph-info text-lg mt-0.5"></i>
+            <p>Değişiklikleri kaydetmeden önce sol taraftan düzenleyebilir, sağ taraftan nasıl görüneceğini kontrol edebilirsiniz.</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // DOM Elementleri
+        const iconInput = document.getElementById('iconInput');
+        const titleInput = document.getElementById('titleInput');
+        const descInput = document.getElementById('descInput');
+
+        const iconPreviewMain = document.getElementById('iconPreviewMain'); // Inputun içindeki
+        const previewIcon = document.getElementById('previewIcon');         // Karttaki
+        const previewTitle = document.getElementById('previewTitle');
+        const previewDesc = document.getElementById('previewDesc');
+        
+        // İkon değişince
+        iconInput.addEventListener('input', function() {
+            const val = this.value ? this.value : 'ph-hash';
+            // Input içindeki ikon
+            iconPreviewMain.className = 'ph text-xl text-[#5A7D7C] ' + val;
+            // Karttaki ikon
+            previewIcon.className = 'ph ' + val;
+        });
+
+        // Başlık değişince
+        titleInput.addEventListener('input', function() {
+            previewTitle.textContent = this.value || 'Tema Başlığı';
+        });
+
+        // Açıklama değişince
+        descInput.addEventListener('input', function() {
+            previewDesc.textContent = this.value || 'Açıklama alanı...';
+        });
+    </script>
+}

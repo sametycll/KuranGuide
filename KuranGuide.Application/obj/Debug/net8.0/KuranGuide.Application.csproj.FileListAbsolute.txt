@@ -1,0 +1,15 @@
+D:\MyRepo\KuranGuide\KuranGuide.Application\bin\Debug\net8.0\KuranGuide.Application.deps.json
+D:\MyRepo\KuranGuide\KuranGuide.Application\bin\Debug\net8.0\KuranGuide.Application.dll
+D:\MyRepo\KuranGuide\KuranGuide.Application\bin\Debug\net8.0\KuranGuide.Application.pdb
+D:\MyRepo\KuranGuide\KuranGuide.Application\bin\Debug\net8.0\KuranGuide.Domain.dll
+D:\MyRepo\KuranGuide\KuranGuide.Application\bin\Debug\net8.0\KuranGuide.Domain.pdb
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.csproj.AssemblyReference.cache
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.AssemblyInfoInputs.cache
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.AssemblyInfo.cs
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.csproj.CoreCompileInputs.cache
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGui.E0B41039.Up2Date
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.dll
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\refint\KuranGuide.Application.dll
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.pdb
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\ref\KuranGuide.Application.dll

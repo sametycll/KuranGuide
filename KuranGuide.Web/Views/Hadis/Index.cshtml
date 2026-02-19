@@ -1,0 +1,178 @@
+﻿@model List<KuranGuide.Web.Models.HadisViewModel>
+
+@{
+    ViewData["Title"] = "Hadis-i Şerifler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan: Diğer sayfalarla uyumlu sıcak geçiş */
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%), #F7F7F4;
+        }
+
+        /* 2. Hadis Kartı: Buzlu Cam (Glassmorphism) */
+        .hadis-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 1.8rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
+        }
+
+            /* Kart Hover Efekti */
+            .hadis-card:hover {
+                transform: translateY(-6px);
+                background: rgba(255, 255, 255, 0.95);
+                border-color: #D4AF37; /* Altın */
+                box-shadow: 0 20px 40px -12px rgba(212, 175, 55, 0.15);
+            }
+
+        /* Hadis Metni */
+        .hadis-text {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #2C3E50;
+        }
+
+        /* Arama Kutusu */
+        .search-input {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+            .search-input:focus {
+                background: #ffffff;
+                border-color: #D4AF37;
+                box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+            }
+    </style>
+}
+
+<main class="max-w-7xl mx-auto px-4 py-14">
+
+    <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-[11px] font-bold tracking-[0.2em] text-altin uppercase bg-altin/10 px-3 py-1.5 rounded-md mb-5 inline-block border border-altin/20">
+            KÜTÜB-İ SİTTE
+        </span>
+
+        <h1 class="text-4xl md:text-5xl font-serif text-antrasit mb-6 font-medium tracking-tight">
+            Hadis-i Şerifler
+        </h1>
+
+        <p class="text-gri font-light text-lg mb-10">
+            Resûlullah'ın (s.a.v.) hikmet dolu sözleri arasında arama yapın.
+        </p>
+
+        <div class="relative max-w-lg mx-auto group">
+            <input type="text"
+                   id="hadisSearch"
+                   placeholder="Hadis, konu veya kaynak ara... (Örn: Sabır, Buhari)"
+                   class="search-input w-full py-4 pl-14 pr-6 rounded-full text-lg text-antrasit placeholder-gray-400 outline-none">
+
+            <i class="ph ph-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-altin transition-colors"></i>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="hadisContainer">
+
+        @foreach (var hadis in Model)
+        {
+            <a href="/Hadis/Detay/@hadis.Id"
+               class="hadis-item block h-full"
+               data-metin="@hadis.Metin"
+               data-kaynak="@hadis.Kaynak"
+               data-tema="@(hadis.TemaAdi ?? "")">
+
+                <div class="hadis-card group">
+                    <div>
+                        <div class="flex justify-between items-start mb-5">
+                            <i class="ph ph-quotes text-4xl text-altin/30 group-hover:text-altin transition-colors duration-300"></i>
+
+                            @if (!string.IsNullOrEmpty(hadis.TemaAdi))
+                            {
+                                <span class="text-[10px] font-bold tracking-wider text-gray-500 bg-white/60 px-2 py-1 rounded border border-gray-100 group-hover:border-altin/30 group-hover:text-altin transition-colors uppercase">
+                                    @hadis.TemaAdi
+                                </span>
+                            }
+                        </div>
+
+                        <p class="hadis-text italic mb-6 line-clamp-4 group-hover:text-black transition-colors">
+                            "@hadis.Metin"
+                        </p>
+                    </div>
+
+                    <div class="pt-5 border-t border-gray-100/60 flex justify-between items-center mt-auto group-hover:border-altin/20 transition-colors">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest group-hover:text-altin transition-colors">
+                            @hadis.Kaynak
+                        </span>
+
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-50 text-gray-400 group-hover:bg-altin group-hover:text-white transition-all duration-300">
+                            <i class="ph ph-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <div id="noResult" class="hidden text-center py-20">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100/80 mb-4">
+            <i class="ph ph-magnifying-glass text-3xl text-gray-400"></i>
+        </div>
+        <h3 class="text-xl font-serif text-gray-600">Aramanızla eşleşen hadis bulunamadı.</h3>
+    </div>
+
+</main>
+
+@section Scripts {
+    <script>
+        // Türkçe karakter ve şapka temizleme fonksiyonu
+        function temizle(metin) {
+            if (!metin) return "";
+            return metin
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/['\-’`"“”.]/g, '')
+                .toLowerCase();
+        }
+
+        const searchInput = document.getElementById('hadisSearch');
+        const items = document.querySelectorAll('.hadis-item');
+        const noResult = document.getElementById('noResult');
+
+        searchInput.addEventListener('input', function (e) {
+            const aranan = temizle(e.target.value);
+            let gorunenSayisi = 0;
+
+            items.forEach(item => {
+                const metin = temizle(item.getAttribute('data-metin'));
+                const kaynak = temizle(item.getAttribute('data-kaynak'));
+                const tema = temizle(item.getAttribute('data-tema'));
+
+                if (metin.includes(aranan) || kaynak.includes(aranan) || tema.includes(aranan)) {
+                    item.style.display = "block";
+                    gorunenSayisi++;
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            if (gorunenSayisi === 0) {
+                noResult.classList.remove('hidden');
+            } else {
+                noResult.classList.add('hidden');
+            }
+        });
+    </script>
+}

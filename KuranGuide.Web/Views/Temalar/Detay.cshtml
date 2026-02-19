@@ -1,0 +1,233 @@
+﻿@model KuranGuide.Web.Models.TemaDetailViewModel
+@{
+    ViewData["Title"] = Model?.Tema?.TemaAdi ?? "Tema Detay";
+    var iconClass = !string.IsNullOrWhiteSpace(Model?.Tema?.Icon) ? Model.Tema.Icon : "ph-sun-horizon";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan: Diğer sayfalarla uyumlu */
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%), #F7F7F4;
+        }
+
+        /* 2. İkon Kutusu */
+        .tema-icon-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: #3F605F; /* Yaprak Yeşili */
+            box-shadow: 0 15px 35px -10px rgba(90, 125, 124, 0.15);
+            margin: 0 auto 1.5rem auto;
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .header-container:hover .tema-icon-box {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* 3. Tabs (Sekmeler) - Modern Pill Design */
+        .tab-container {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: inline-flex;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+        }
+
+        .tema-tab {
+            padding: 0.75rem 2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #6B7280;
+            border: 1px solid transparent;
+        }
+
+            .tema-tab:hover {
+                color: #374151;
+                background: rgba(255,255,255,0.5);
+            }
+
+        .tema-tab-active {
+            background: #ffffff !important;
+            color: #3F605F !important; /* Yaprak */
+            font-weight: 600;
+            box-shadow: 0 4px 15px -3px rgba(0,0,0,0.1);
+            border-color: rgba(0,0,0,0.02);
+            transform: scale(1.02);
+        }
+
+        /* 4. İçerik Kartları (Glassmorphism) */
+        .content-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .content-card:hover {
+                transform: translateY(-4px);
+                background: rgba(255, 255, 255, 0.95);
+                border-color: #D4AF37; /* Altın */
+                box-shadow: 0 20px 40px -12px rgba(212, 175, 55, 0.15);
+            }
+
+        .font-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            line-height: 2;
+        }
+    </style>
+}
+
+<header class="pt-16 pb-10 px-4 text-center max-w-4xl mx-auto header-container">
+
+    <div class="tema-icon-box">
+        <i class="ph @Model.Tema.Icon"></i>
+    </div>
+
+    <span class="text-[11px] font-bold tracking-[0.2em] text-altin uppercase bg-altin/10 px-3 py-1 rounded-md mb-4 inline-block border border-altin/20">
+        KONU
+    </span>
+
+    <h1 class="font-serif text-4xl md:text-5xl text-antrasit mb-4 font-medium tracking-tight">
+        @Model.Tema.TemaAdi
+    </h1>
+
+    <p class="text-gri text-lg max-w-2xl mx-auto leading-relaxed font-light">
+        @Model.Tema.Aciklama
+    </p>
+</header>
+
+<main class="max-w-4xl mx-auto px-4 pb-24">
+
+    <div class="flex justify-center mb-10">
+        <div class="tab-container">
+            <button type="button"
+                    class="tema-tab tema-tab-active"
+                    onclick="switchTemaTab('ayetler', this)"
+                    data-tab="ayetler">
+                Ayetler <span class="ml-1 opacity-60 text-xs">(@(Model.Ayetler?.Count ?? 0))</span>
+            </button>
+
+            <button type="button"
+                    class="tema-tab"
+                    onclick="switchTemaTab('hadisler', this)"
+                    data-tab="hadisler">
+                Hadisler <span class="ml-1 opacity-60 text-xs">(@(Model.Hadisler?.Count ?? 0))</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="ayetlerTab" class="flex flex-col gap-6 fade-in">
+        @if (Model.Ayetler != null && Model.Ayetler.Any())
+        {
+            foreach (var ayet in Model.Ayetler)
+            {
+                <a href="/Ayet/Detay/@ayet.Id" class="content-card group block">
+                    <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-yaprak/10 text-yaprak flex items-center justify-center font-serif font-bold text-sm">
+                                @ayet.SureId
+                            </span>
+                            <span class="text-sm font-bold text-antrasit">
+                                @ayet.SureId. Sûre, @ayet.AyetNo. Ayet
+                            </span>
+                        </div>
+                        <i class="ph ph-arrow-right text-gray-300 group-hover:text-yaprak transition-colors text-xl"></i>
+                    </div>
+
+                    <p class="font-arabic text-right mb-5 text-antrasit group-hover:text-black transition-colors" dir="rtl">
+                        @ayet.ArapcaMetin
+                    </p>
+
+                    <p class="font-serif text-lg text-gray-700 leading-relaxed">
+                        "@ayet.Meal"
+                    </p>
+                </a>
+            }
+        }
+        else
+        {
+            <div class="text-center py-12 opacity-60">
+                <i class="ph ph-book-open text-4xl mb-2 text-gray-300"></i>
+                <p class="text-gray-500">Bu konuyla ilgili ayet bulunmuyor.</p>
+            </div>
+        }
+    </div>
+
+    <div id="hadislerTab" class="flex flex-col gap-6 hidden fade-in">
+        @if (Model.Hadisler != null && Model.Hadisler.Any())
+        {
+            foreach (var hadis in Model.Hadisler)
+            {
+                <a href="/Hadis/Detay/@hadis.Id" class="content-card group block">
+                    <div class="flex justify-between items-center mb-5">
+                        <span class="text-[10px] font-bold tracking-widest text-altin uppercase bg-altin/10 px-3 py-1 rounded-full border border-altin/20">
+                            HADİS
+                        </span>
+                        <i class="ph ph-arrow-right text-gray-300 group-hover:text-altin transition-colors text-xl"></i>
+                    </div>
+
+                    <p class="font-serif text-lg italic text-antrasit/90 leading-relaxed mb-6 text-center">
+                        "@hadis.Metin"
+                    </p>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-center">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest group-hover:text-altin transition-colors">
+                            @hadis.Kaynak
+                        </span>
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <div class="text-center py-12 opacity-60">
+                <i class="ph ph-quotes text-4xl mb-2 text-gray-300"></i>
+                <p class="text-gray-500">Bu konuyla ilgili hadis bulunmuyor.</p>
+            </div>
+        }
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        function switchTemaTab(tabName, btnElement) {
+            const ayetlerTab = document.getElementById('ayetlerTab');
+            const hadislerTab = document.getElementById('hadislerTab');
+            const tabs = document.querySelectorAll('.tema-tab');
+
+            // 1. Buton stillerini güncelle
+            tabs.forEach(t => t.classList.remove('tema-tab-active'));
+            if (btnElement) btnElement.classList.add('tema-tab-active');
+
+            // 2. İçerikleri gizle/göster (Animasyonlu geçiş için opacity kullanılabilir ama basit tutuyoruz)
+            if (tabName === 'ayetler') {
+                ayetlerTab.classList.remove('hidden');
+                hadislerTab.classList.add('hidden');
+            } else {
+                hadislerTab.classList.remove('hidden');
+                ayetlerTab.classList.add('hidden');
+            }
+        }
+    </script>
+}

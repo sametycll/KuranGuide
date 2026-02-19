@@ -1,0 +1,182 @@
+[
+  {
+    "TemaAdi": "İman",
+    "Aciklama": "Allah’a, meleklere, kitaplara, peygamberlere, ahiret gününe ve kadere inanmak.",
+    "AnahtarKelimeler": "iman, tasdik, yakîn, gayb, teslimiyet",
+    "Icon": "ph-shield"
+  },
+  {
+    "TemaAdi": "Tevhid",
+    "Aciklama": "Allah’ı birlemek, O’na hiçbir şeyi ortak koşmamak.",
+    "AnahtarKelimeler": "tevhid, şirk, ilah, rab, tek olan",
+    "Icon": "ph-one"
+  },
+  {
+    "TemaAdi": "Namaz",
+    "Aciklama": "Kulun Rabbiyle doğrudan bağlantı kurduğu temel ibadet.",
+    "AnahtarKelimeler": "salat, secde, rüku, huşu, vakit",
+    "Icon": "ph-rug"
+  },
+  {
+    "TemaAdi": "Oruç",
+    "Aciklama": "Nefsi terbiye eden, takvayı artıran ibadet.",
+    "AnahtarKelimeler": "savm, ramazan, iftar, sabır, nefis",
+    "Icon": "ph-moon"
+  },
+  {
+    "TemaAdi": "Zekât",
+    "Aciklama": "Malı arındıran ve toplumsal dengeyi sağlayan farz ibadet.",
+    "AnahtarKelimeler": "zekat, mal, fakir, arınma, pay",
+    "Icon": "ph-hand-coins"
+  },
+  {
+    "TemaAdi": "İnfak",
+    "Aciklama": "Allah yolunda gönüllü olarak harcamak.",
+    "AnahtarKelimeler": "infak, sadaka, paylaşma, cömertlik",
+    "Icon": "ph-gift"
+  },
+  {
+    "TemaAdi": "Dua",
+    "Aciklama": "Kulun Allah’a yönelerek istemesi ve sığınması.",
+    "AnahtarKelimeler": "dua, niyaz, çağırma, yakarış",
+    "Icon": "ph-sparkle"
+  },
+  {
+    "TemaAdi": "Sabır",
+    "Aciklama": "Zorluklar karşısında direnmek ve Allah’a güvenmek.",
+    "AnahtarKelimeler": "sabır, metanet, musibet, tahammül",
+    "Icon": "ph-hourglass"
+  },
+  {
+    "TemaAdi": "Şükür",
+    "Aciklama": "Nimetlerin Allah’tan geldiğini bilerek teşekkür etmek.",
+    "AnahtarKelimeler": "şükür, hamd, nimet, kanaat",
+    "Icon": "ph-hands-praying"
+  },
+  {
+    "TemaAdi": "Tövbe",
+    "Aciklama": "Günahtan pişman olup Allah’a yönelmek.",
+    "AnahtarKelimeler": "tövbe, istiğfar, pişmanlık, dönüş",
+    "Icon": "ph-arrow-u-up-left"
+  },
+  {
+    "TemaAdi": "Bağışlanma",
+    "Aciklama": "Allah’ın günahları affetmesi ve merhameti.",
+    "AnahtarKelimeler": "mağfiret, af, rahmet",
+    "Icon": "ph-heart"
+  },
+  {
+    "TemaAdi": "Takva",
+    "Aciklama": "Allah’a karşı sorumluluk bilinciyle yaşamak.",
+    "AnahtarKelimeler": "takva, sakınma, bilinç, hassasiyet",
+    "Icon": "ph-leaf"
+  },
+  {
+    "TemaAdi": "Ahlak",
+    "Aciklama": "Güzel huylar ve kaçınılması gereken davranışlar.",
+    "AnahtarKelimeler": "edep, dürüstlük, gıybet, tevazu",
+    "Icon": "ph-star"
+  },
+  {
+    "TemaAdi": "Adalet",
+    "Aciklama": "Hak sahibine hakkını vermek ve zulümden kaçınmak.",
+    "AnahtarKelimeler": "adalet, hak, zulüm, terazi",
+    "Icon": "ph-scales"
+  },
+  {
+    "TemaAdi": "Kul Hakkı",
+    "Aciklama": "İnsanlar arasındaki hak ve sorumluluklar.",
+    "AnahtarKelimeler": "kul hakkı, emanet, sorumluluk",
+    "Icon": "ph-handshake"
+  },
+  {
+    "TemaAdi": "Aile",
+    "Aciklama": "Eşler arası sevgi, merhamet ve sorumluluk.",
+    "AnahtarKelimeler": "evlilik, eş, huzur, merhamet",
+    "Icon": "ph-users"
+  },
+  {
+    "TemaAdi": "Çocuk",
+    "Aciklama": "Evlatların bir emanet ve imtihan oluşu.",
+    "AnahtarKelimeler": "çocuk, evlat, nesil, emanet",
+    "Icon": "ph-baby"
+  },
+  {
+    "TemaAdi": "Rızık",
+    "Aciklama": "Her canlının Allah tarafından verilen nasibi.",
+    "AnahtarKelimeler": "rızık, nasip, bereket, geçim",
+    "Icon": "ph-grains"
+  },
+  {
+    "TemaAdi": "Korku",
+    "Aciklama": "Allah’ın azabından sakınma bilinci.",
+    "AnahtarKelimeler": "korku, havf, cehennem, azap",
+    "Icon": "ph-warning"
+  },
+  {
+    "TemaAdi": "Ümit",
+    "Aciklama": "Allah’ın rahmetinden asla ümit kesmemek.",
+    "AnahtarKelimeler": "ümit, reca, rahmet",
+    "Icon": "ph-sun"
+  },
+  {
+    "TemaAdi": "Ölüm",
+    "Aciklama": "Dünya hayatının sona ermesi ve ahirete geçiş.",
+    "AnahtarKelimeler": "ölüm, ecel, kabir",
+    "Icon": "ph-skull"
+  },
+  {
+    "TemaAdi": "Ahiret",
+    "Aciklama": "Hesap, cennet ve cehennemi kapsayan ebedi hayat.",
+    "AnahtarKelimeler": "ahiret, hesap, mizan, kıyamet",
+    "Icon": "ph-infinity"
+  },
+  {
+    "TemaAdi": "Cennet",
+    "Aciklama": "İtaatkâr kullar için hazırlanan mükâfat yurdu.",
+    "AnahtarKelimeler": "cennet, nimet, ebediyet",
+    "Icon": "ph-tree"
+  },
+  {
+    "TemaAdi": "Cehennem",
+    "Aciklama": "İnkâr ve zulmün karşılığı olan azap yurdu.",
+    "AnahtarKelimeler": "cehennem, ateş, azap",
+    "Icon": "ph-fire"
+  },
+  {
+    "TemaAdi": "Peygamberler",
+    "Aciklama": "Allah’ın mesajını insanlara ileten elçiler.",
+    "AnahtarKelimeler": "peygamber, resul, elçi",
+    "Icon": "ph-scroll"
+  },
+  {
+    "TemaAdi": "Kur’an",
+    "Aciklama": "İnsanlığa indirilen son ilahi rehber.",
+    "AnahtarKelimeler": "kuran, vahiy, kitap, furkan",
+    "Icon": "ph-book-open"
+  },
+  {
+    "TemaAdi": "İmtihan",
+    "Aciklama": "Dünya hayatının bir sınav oluşu.",
+    "AnahtarKelimeler": "imtihan, deneme, bela",
+    "Icon": "ph-path"
+  },
+  {
+    "TemaAdi": "Nefis",
+    "Aciklama": "İnsanı iyiye veya kötüye yönelten iç güç.",
+    "AnahtarKelimeler": "nefis, arzu, heva",
+    "Icon": "ph-brain"
+  },
+  {
+    "TemaAdi": "Şeytan",
+    "Aciklama": "İnsanı saptırmaya çalışan düşman.",
+    "AnahtarKelimeler": "şeytan, vesvese, saptırma",
+    "Icon": "ph-bug"
+  },
+  {
+    "TemaAdi": "İmtihan",
+    "Aciklama": "Dünya hayatının zorlukları ve insanın denenmesi.",
+    "AnahtarKelimeler": "sınav, deneme, bela, sıkıntı, hastalık, dert",
+    "Icon": "ph-path"
+  }
+]

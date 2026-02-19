@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\MyRepo\\KuranGuide\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\controllers\\ayetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\controllers\\ayetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\views\\hadis\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\views\\hadis\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|d:\\myrepo\\kuranguide\\kuranguide.web\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1540922D-4792-41A4-AB07-1898A17D6908}|KuranGuide.Web\\KuranGuide.Web.csproj|solutionrelative:kuranguide.web\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BE5E2B-8961-412B-8652-6B7F5853FE11}|KuranGuide.Application\\KuranGuide.Application.csproj|d:\\myrepo\\kuranguide\\kuranguide.application\\dtos\\general\\searchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2BE5E2B-8961-412B-8652-6B7F5853FE11}|KuranGuide.Application\\KuranGuide.Application.csproj|solutionrelative:kuranguide.application\\dtos\\general\\searchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "KuranGuide.Web\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAAAAYBAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-05T11:00:58.517Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SearchResponseDto.cs",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\DTOs\\General\\SearchResponseDto.cs",
+              "RelativeDocumentMoniker": "KuranGuide.Application\\DTOs\\General\\SearchResponseDto.cs",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\DTOs\\General\\SearchResponseDto.cs",
+              "RelativeToolTip": "KuranGuide.Application\\DTOs\\General\\SearchResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T06:44:38.81Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "KuranGuide.Web\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T11:39:54.736Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Hadis\\Index.cshtml",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Views\\Hadis\\Index.cshtml",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Hadis\\Index.cshtml",
+              "RelativeToolTip": "KuranGuide.Web\\Views\\Hadis\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-07T13:33:47.274Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AyetController.cs",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\AyetController.cs",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Controllers\\AyetController.cs",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\AyetController.cs",
+              "RelativeToolTip": "KuranGuide.Web\\Controllers\\AyetController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T13:40:41.747Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Contact.cshtml",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\Contact.cshtml",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Views\\Home\\Contact.cshtml",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\Contact.cshtml",
+              "RelativeToolTip": "KuranGuide.Web\\Views\\Home\\Contact.cshtml",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAUwLYAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T09:13:25.038Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "KuranGuide.Web\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAUwIgAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T09:11:48.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "About.cshtml",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Views\\Home\\About.cshtml",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "KuranGuide.Web\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T09:08:22.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "KuranGuide.Web\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "KuranGuide.Web\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T06:30:38.834Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

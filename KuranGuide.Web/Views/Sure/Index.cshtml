@@ -1,0 +1,171 @@
+﻿@model List<SureListeViewModel>
+
+@{
+    ViewData["Title"] = "Sureler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan: Sıcak geçiş */
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%), #F7F7F4;
+        }
+
+        /* 2. Sure Kartı: Kompakt Buzlu Cam */
+        .sure-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px; /* Köşeler biraz daha keskinleşti */
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* Hover Durumu */
+            .sure-card:hover {
+                transform: translateY(-4px); /* Daha az yükselme */
+                background: rgba(255, 255, 255, 0.95);
+                border-color: #D4AF37;
+                box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.15);
+            }
+
+        /* Sure Numarası Kutusu */
+        .sure-no-box {
+            background: rgba(90, 125, 124, 0.08);
+            color: #5A7D7C;
+            transition: all 0.3s ease;
+        }
+
+        .sure-card:hover .sure-no-box {
+            background: #5A7D7C;
+            color: white;
+        }
+
+        /* Arama Kutusu */
+        .search-input {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+            .search-input:focus {
+                background: #ffffff;
+                border-color: #D4AF37;
+                box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+            }
+    </style>
+}
+
+<div class="max-w-7xl mx-auto py-12 px-4">
+
+    <div class="text-center mb-12">
+        <h1 class="font-serif text-3xl md:text-4xl text-antrasit mb-3 font-medium tracking-tight">
+            Kur'an-ı Kerim Sureleri
+        </h1>
+        <p class="text-gri font-light mb-8 text-sm md:text-base">
+            Sure adına veya numarasına göre arama yapabilirsiniz.
+        </p>
+
+        <div class="relative max-w-md mx-auto group">
+            <input type="text" id="sureSearch" placeholder="Arama yapın... (Örn: Yasin, 36)"
+                   class="search-input w-full py-3.5 pl-12 pr-6 rounded-full text-antrasit placeholder-gray-400 outline-none">
+
+            <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg group-focus-within:text-altin transition-colors"></i>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5" id="sureGrid">
+        @foreach (var sure in Model)
+        {
+            <a href="/Sure/Detay/@sure.SureNo"
+               class="sure-card p-5 group flex flex-col justify-between h-full min-h-[160px]"
+               data-name="@sure.SureAdi.ToLower()"
+               data-no="@sure.SureNo">
+
+                <div class="absolute -right-4 -bottom-4 text-[5rem] font-bold text-gray-50 opacity-50 select-none group-hover:text-altin/5 transition-colors font-serif leading-none">
+                    @sure.SureNo
+                </div>
+
+                <div class="flex items-start justify-between relative z-10 mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="sure-no-box w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg font-serif flex-shrink-0">
+                            @sure.SureNo
+                        </div>
+
+                        <div>
+                            <h3 class="font-serif text-xl text-antrasit font-bold group-hover:text-yaprak transition-colors line-clamp-1">
+                                @sure.SureAdi
+                            </h3>
+                            <span class="text-[10px] font-bold tracking-widest uppercase text-gray-400 bg-white/50 px-1.5 py-0.5 rounded border border-gray-100/50">
+                                @sure.Yer
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex justify-between items-end border-t border-gray-100/50 pt-3 mt-auto">
+                    <div class="text-xs text-gray-500 font-medium flex items-center gap-1">
+                        <i class="ph ph-list-numbers text-base"></i>
+                        @sure.AyetSayisi Ayet
+                    </div>
+
+                    <p class="font-arabic text-2xl text-antrasit/80 group-hover:text-altin transition-colors leading-none">
+                        @sure.ArapcaAdi
+                    </p>
+                </div>
+            </a>
+        }
+    </div>
+
+    <div id="noResult" class="hidden text-center py-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100/80 mb-3">
+            <i class="ph ph-magnifying-glass text-2xl text-gray-400"></i>
+        </div>
+        <h3 class="text-lg font-serif text-gray-600">Eşleşen sure bulunamadı.</h3>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        // Türkçe karakter temizleme
+        function temizle(metin) {
+            return metin
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/['\-’`]/g, '')
+                .toLowerCase();
+        }
+
+        const searchInput = document.getElementById('sureSearch');
+        const cards = document.querySelectorAll('.sure-card');
+        const noResult = document.getElementById('noResult');
+
+        searchInput.addEventListener('input', function (e) {
+            const aranan = temizle(e.target.value);
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const isim = temizle(card.getAttribute('data-name'));
+                const no = card.getAttribute('data-no');
+
+                if (isim.includes(aranan) || no.includes(aranan)) {
+                    card.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResult.classList.remove('hidden');
+            } else {
+                noResult.classList.add('hidden');
+            }
+        });
+    </script>
+}

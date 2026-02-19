@@ -1,0 +1,145 @@
+﻿@model KuranGuide.Web.Models.HadisDetailViewModel
+@{
+    ViewData["Title"] = "Hadis Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan: Diğer sayfalarla uyumlu sıcak geçiş */
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%), #F7F7F4;
+        }
+
+        /* 2. Premium Hadis Kartı (Buzlu Cam) */
+        .hadis-card {
+            background: rgba(255, 255, 255, 0.75); /* Daha şeffaf */
+            backdrop-filter: blur(16px); /* Daha fazla bulanıklık */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); /* Yumuşak gölge */
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dekoratif Arkaplan İkonu */
+        .card-bg-icon {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 10rem;
+            color: rgba(212, 175, 55, 0.03); /* Çok silik altın */
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Metin Stili */
+        .hadis-text {
+            font-family: 'Lora', serif;
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #2C3E50;
+        }
+
+        /* Buton Hover Efektleri */
+        .action-button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+            .action-button:active {
+                transform: scale(0.95);
+            }
+    </style>
+}
+
+<main class="w-full max-w-3xl mx-auto px-6 py-14 flex flex-col items-center relative z-10">
+
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <span class="text-[11px] font-bold tracking-[0.2em] text-altin uppercase bg-altin/10 px-4 py-1.5 rounded-full border border-altin/20">
+            HADİS-İ ŞERİF
+        </span>
+
+        @if (Model.Tema != null)
+        {
+            <a href="/Temalar/Detay/@Model.Tema.Id" class="text-[11px] font-bold tracking-[0.2em] text-yaprak uppercase bg-yaprak/10 px-4 py-1.5 rounded-full border border-yaprak/20 hover:bg-yaprak hover:text-white transition-colors">
+                @Model.Tema.TemaAdi
+            </a>
+        }
+    </div>
+
+    <div class="hadis-card w-full mb-10 text-center group">
+
+        <i class="ph ph-quotes card-bg-icon"></i>
+
+        <div class="relative z-10 w-14 h-14 rounded-full bg-gradient-to-br from-altin/20 to-altin/5 text-altin flex items-center justify-center mx-auto mb-8 shadow-inner">
+            <i class="ph ph-quotes text-3xl"></i>
+        </div>
+
+        <p class="hadis-text relative z-10 mb-8 italic">
+            "@Model.Hadis.Metin"
+        </p>
+
+        <div class="relative z-10 w-24 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto mb-6"></div>
+
+        <p class="relative z-10 text-sm font-bold text-gray-400 uppercase tracking-widest">
+            @Model.Hadis.Kaynak
+        </p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Hadis.Aciklama))
+    {
+        <div class="w-full bg-white/60 backdrop-blur-md p-6 rounded-2xl border border-white/50 shadow-sm mb-12">
+            <h4 class="font-serif font-medium text-yaprak mb-3 flex items-center gap-2 text-lg">
+                <i class="ph ph-info text-xl"></i>
+                Kısa Açıklama
+            </h4>
+            <p class="text-gray-600 text-base leading-relaxed font-light">
+                @Model.Hadis.Aciklama
+            </p>
+        </div>
+    }
+
+    <div class="flex items-center gap-4 bg-white/90 backdrop-blur shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] px-8 py-3 rounded-full border border-gray-100">
+
+        <button type="button"
+                class="favori-toggle action-button w-12 h-12 rounded-full flex items-center justify-center transition-all bg-red-50 hover:bg-red-100 hover:shadow-md"
+                data-type="hadis"
+                data-refid="@Model.Hadis.Id"
+                title="Favorilere Ekle">
+            <i class="ph ph-heart text-2xl @(Model.IsFavorited ? "ph-fill text-red-600" : "text-red-300")"></i>
+        </button>
+
+        <div class="w-px h-6 bg-gray-200"></div>
+
+        <button onclick="copyToClipboard(`@Model.Hadis.Metin - @Model.Hadis.Kaynak`)"
+                class="action-button group w-12 h-12 rounded-full bg-altin/10 text-altin flex items-center justify-center hover:bg-altin hover:text-white hover:shadow-md transition-all"
+                title="Metni Kopyala">
+            <i class="ph ph-copy text-2xl"></i>
+        </button>
+
+    </div>
+
+</main>
+
+@section Scripts {
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Basit bir toast mesajı veya buton değişimi yapılabilir
+                // Örnek: Butonun ikonunu geçici olarak değiştirme
+                const btnIcon = document.querySelector('.ph-copy');
+                if(btnIcon) {
+                    btnIcon.classList.remove('ph-copy');
+                    btnIcon.classList.add('ph-check');
+                    setTimeout(() => {
+                        btnIcon.classList.remove('ph-check');
+                        btnIcon.classList.add('ph-copy');
+                    }, 2000);
+                }
+            }, function(err) {
+                console.error('Kopyalama hatası: ', err);
+            });
+        }
+    </script>
+}

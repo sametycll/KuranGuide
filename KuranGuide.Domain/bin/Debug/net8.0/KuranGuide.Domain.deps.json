@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "KuranGuide.Domain/1.0.0": {
+        "runtime": {
+          "KuranGuide.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "KuranGuide.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

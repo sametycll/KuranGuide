@@ -1,0 +1,125 @@
+﻿@model KuranGuide.Web.Models.HadisViewModel
+
+@{
+    ViewData["Title"] = "Hadis Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="flex items-center gap-4 mb-8">
+    <a href="/Admin/AdminHadis/Index" class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-[#5A7D7C] hover:border-[#5A7D7C] transition-all">
+        <i class="ph ph-arrow-left text-xl"></i>
+    </a>
+    <div>
+        <h1 class="text-2xl font-bold text-[#2C3E50]">Hadisi Düzenle</h1>
+        <p class="text-sm text-gray-500">Mevcut kaydı güncelliyorsunuz.</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="lg:col-span-2">
+        <form method="post" class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm relative">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="space-y-6">
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">İlgili Tema</label>
+                    <div class="relative">
+                        <select asp-for="TemaId" asp-items="ViewBag.Temalar" required
+                                class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all appearance-none cursor-pointer">
+                            <option value="" selected required>Tema Seçiniz...</option>
+                        </select>
+                        <i class="ph ph-caret-down absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kaynak (Ravi)</label>
+                    <input asp-for="Kaynak" type="text" id="kaynakInput" required
+                           class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Hadis Metni</label>
+                    <textarea asp-for="Metin" rows="4" id="metinInput" required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all font-serif italic text-lg resize-none leading-relaxed"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[#2C3E50] mb-2">Kısa Açıklama</label>
+                    <textarea asp-for="Aciklama" rows="3" required
+                              class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:border-[#5A7D7C] focus:ring-4 focus:ring-[#5A7D7C]/10 outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+                    <a href="/Admin/AdminHadis/Delete?id=@Model.Id" onclick="return confirm('Silmek istediğinize emin misiniz?')"
+                       class="text-red-500 hover:text-red-700 text-sm font-medium px-4 py-2 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2">
+                        <i class="ph ph-trash"></i> Hadisi Sil
+                    </a>
+
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <a href="/Admin/AdminHadis/Index" class="px-6 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition font-medium text-center flex-1 sm:flex-none">İptal</a>
+                        <button type="submit" class="bg-[#5A7D7C] text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-[#5A7D7C]/20 hover:bg-[#2C3E50] hover:scale-[1.02] active:scale-95 transition-all duration-200 flex-1 sm:flex-none">
+                            Değişiklikleri Kaydet
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="lg:col-span-1">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 pl-1">Canlı Önizleme</h3>
+
+        <div class="bg-white rounded-3xl border border-[#D4AF37]/30 p-8 shadow-sm relative overflow-hidden group text-center sticky top-6">
+
+            <div class="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]"></div>
+
+            <div class="w-12 h-12 mx-auto bg-[#D4AF37]/10 rounded-full flex items-center justify-center text-[#D4AF37] mb-5">
+                <i class="ph ph-quotes text-2xl"></i>
+            </div>
+
+            <span class="block text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">
+                Hadis-i Şerif
+            </span>
+
+            <p id="metinPreview" class="font-serif text-xl leading-relaxed text-[#2C3E50] italic mb-6">
+                "@Model.Metin"
+            </p>
+
+            <div class="w-16 h-px bg-gray-200 mx-auto mb-4"></div>
+
+            <p id="kaynakPreview" class="text-sm font-bold text-gray-500">
+                @Model.Kaynak
+            </p>
+
+            <div class="mt-8 pt-4 border-t border-gray-50 flex justify-center text-xs text-gray-300 font-medium">
+                Önizleme
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const kaynakInput = document.getElementById('kaynakInput');
+        const metinInput = document.getElementById('metinInput');
+
+        const kaynakPreview = document.getElementById('kaynakPreview');
+        const metinPreview = document.getElementById('metinPreview');
+
+        kaynakInput.addEventListener('input', function() {
+            kaynakPreview.textContent = this.value || 'Kaynak...';
+        });
+
+        metinInput.addEventListener('input', function() {
+            metinPreview.textContent = this.value ? `"${this.value}"` : '...';
+        });
+    </script>
+}
+

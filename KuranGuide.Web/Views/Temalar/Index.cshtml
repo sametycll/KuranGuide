@@ -1,0 +1,206 @@
+﻿@model List<KuranGuide.Web.Models.TemaViewModel>
+@{
+    ViewData["Title"] = "Temalar";
+}
+
+@section Styles {
+    <style> 
+        body {
+            background: radial-gradient(circle at 12% 18%, rgba(212,175,55,0.035) 0%, transparent 40%), radial-gradient(circle at 88% 82%, rgba(90,125,124,0.045) 0%, transparent 45%), #F7F7F4;
+        }
+
+        /* Arama Kutusu Stili */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 3rem auto;
+        }
+        /* İkonun konumu (SOL) */
+        .search-icon {
+            position: absolute;
+            left: 1.5rem; /* Soldan boşluk */
+            top: 50%;
+            transform: translateY(-50%); /* Dikey ortalama */
+            color: #95A5A6;
+            font-size: 1.4rem;
+            pointer-events: none; /* Tıklamayı engelle, arkadaki inputa geçsin */
+            z-index: 10;
+        }
+
+        .search-input {
+            width: 100%;
+            /* Soldan boşluk bırakıyoruz ki yazı ikonun üstüne binmesin */
+            padding: 1rem 1.5rem 1rem 3.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+            font-size: 1rem;
+            color: #2C3E50;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+            .search-input:focus {
+                background: #fff;
+                border-color: #D4AF37;
+                box-shadow: 0 8px 30px -5px rgba(212, 175, 55, 0.15);
+            }
+        /* İkonun konumu (SOL) */
+        .search-icon {
+            position: absolute;
+            left: 1.5rem; /* Soldan boşluk */
+            top: 50%;
+            transform: translateY(-50%); /* Dikey ortalama */
+            color: #95A5A6;
+            font-size: 1.4rem;
+            pointer-events: none; /* Tıklamayı engelle, arkadaki inputa geçsin */
+            z-index: 10;
+        }
+
+        /* Kart Stili (Mevcut) */
+        .theme-card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.55);
+            padding: 1.6rem 1.7rem;
+            box-shadow: 0 10px 28px -12px rgba(0,0,0,0.08);
+            transition: all .28s ease;
+        }
+
+            .theme-card:hover {
+                transform: translateY(-4px);
+                border-color: #C69A2E;
+                box-shadow: 0 14px 34px -10px rgba(0,0,0,0.12);
+            }
+
+        .icon-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3F605F;
+            font-size: 1.7rem;
+            transition: all .25s ease;
+        }
+
+        .theme-card:hover .icon-box {
+            background: #3F605F;
+            color: #fff;
+        }
+
+        .tema-description {
+            color: #6F7A82;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .tema-meta {
+            color: #7D7D7D;
+            font-size: 0.75rem;
+            margin-top: .6rem;
+        }
+
+        /* Bulunamadı Mesajı */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #95A5A6;
+            display: none; /* Başlangıçta gizli */
+        }
+    </style>
+}
+
+<header class="text-center  px-4">
+    <h1 class="font-serif text-3xl md:text-4xl text-antrasit mb-3">Temalar</h1>
+    <p class="text-gri text-base font-light mb-8">
+        Hayatın her hali için Kur'an'dan rehberlik.
+    </p>
+
+    <div class="search-container">
+        <i class="ph ph-magnifying-glass search-icon"></i>
+        <input type="text" id="themeSearch" class="search-input" placeholder="Tema veya açıklama ara...">
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 pb-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="themeGrid">
+
+    @foreach (var tema in Model)
+    {
+        <a href="/Temalar/Detay/@tema.Id"
+           class="theme-card group text-center flex flex-col items-center"
+           data-name="@tema.TemaAdi"
+           data-desc="@tema.Aciklama">
+
+            <div class="icon-box mb-4">
+                <i class="ph @tema.Icon"></i>
+            </div>
+
+            <h3 class="font-serif text-xl text-antrasit mb-1">
+                @tema.TemaAdi
+            </h3>
+
+            <p class="tema-description mb-3 line-clamp-2">
+                @tema.Aciklama
+            </p>
+
+            <div class="tema-meta">
+                @tema.AyetSayisi Ayet • @tema.HadisSayisi Hadis
+            </div>
+
+        </a>
+    }
+
+    <div class="no-result" id="noResultMsg">
+        <div class="mb-3 text-4xl opacity-50">🤔</div>
+        <p>Aradığınız kriterlere uygun tema bulunamadı.</p>
+    </div>
+
+</main>
+
+@section Scripts {
+    <script>
+        // Türkçe karakter duyarsızlaştırma fonksiyonu
+        function temizle(metin) {
+            return metin
+                .toLocaleLowerCase('tr-TR')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        const searchInput = document.getElementById('themeSearch');
+        const cards = document.querySelectorAll('.theme-card');
+        const noResultMsg = document.getElementById('noResultMsg');
+
+        searchInput.addEventListener('input', function(e) {
+            const aranan = temizle(e.target.value);
+            let gorunenSayisi = 0;
+
+            cards.forEach(card => {
+                const ad = temizle(card.getAttribute('data-name'));
+                const aciklama = temizle(card.getAttribute('data-desc'));
+
+                // İsim veya Açıklama içinde arama yap
+                if (ad.includes(aranan) || aciklama.includes(aranan)) {
+                    card.style.display = 'flex'; // Flex yapısını koru
+                    gorunenSayisi++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hiç sonuç yoksa mesaj göster
+            if (gorunenSayisi === 0) {
+                noResultMsg.style.display = 'block';
+            } else {
+                noResultMsg.style.display = 'none';
+            }
+        });
+    </script>
+}

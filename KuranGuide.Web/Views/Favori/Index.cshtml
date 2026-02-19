@@ -1,0 +1,233 @@
+﻿@model KuranGuide.Web.Models.FavoriPageViewModel
+@{
+    ViewData["Title"] = "Favorilerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan */
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%), #F7F7F4;
+        }
+
+        /* 2. Favori Kartı (Glassmorphism) */
+        .fav-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.03);
+        }
+
+            .fav-card:hover {
+                transform: translateY(-4px);
+                background: rgba(255, 255, 255, 0.95);
+                border-color: #D4AF37;
+                box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.15);
+            }
+
+        /* 3. Tab Tasarımı (Pill Shape) */
+        .tab-container {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: inline-flex;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 2.5rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #6B7280;
+            border: 1px solid transparent;
+        }
+
+        .tab-active {
+            background: #ffffff !important;
+            color: #5A7D7C !important; /* Yaprak */
+            font-weight: 700;
+            box-shadow: 0 4px 15px -3px rgba(0,0,0,0.1);
+            transform: scale(1.02);
+        }
+
+        .tab-btn:hover:not(.tab-active) {
+            background: rgba(255,255,255,0.5);
+            color: #374151;
+        }
+
+        /* Silme Butonu */
+        .delete-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #EF4444;
+            background: #FEF2F2;
+            transition: all 0.2s;
+        }
+
+            .delete-btn:hover {
+                background: #EF4444;
+                color: white;
+                transform: scale(1.1);
+            }
+    </style>
+}
+
+<div class="max-w-5xl mx-auto px-4 py-14">
+
+    <header class="text-center mb-12">
+        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-red-50 to-red-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
+            <i class="ph ph-heart text-4xl text-red-400"></i>
+        </div>
+
+        <h1 class="font-serif text-4xl md:text-5xl text-antrasit mb-3 font-medium">Favorilerim</h1>
+        <p class="text-gri font-light text-lg">Kaydettiğin ayet ve hadislere buradan ulaşabilirsin.</p>
+    </header>
+
+    <div class="flex justify-center mb-12">
+        <div class="tab-container">
+            <button class="tab-btn tab-active"
+                    data-tab="ayetler"
+                    onclick="switchTab('ayetler', this)">
+                Ayetler <span class="ml-1 opacity-60 text-xs">(@Model.Ayetler.Count)</span>
+            </button>
+
+            <button class="tab-btn"
+                    data-tab="hadisler"
+                    onclick="switchTab('hadisler', this)">
+                Hadisler <span class="ml-1 opacity-60 text-xs">(@Model.Hadisler.Count)</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="ayetlerTab" class="fade-in">
+        @if (Model.Ayetler.Any())
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach (var fav in Model.Ayetler)
+                {
+                    <div class="fav-card group">
+                        <a href="/Ayet/Detay/@fav.RefId" class="block flex-grow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-[10px] font-bold tracking-widest text-yaprak uppercase bg-yaprak/10 px-3 py-1 rounded-full border border-yaprak/20">
+                                    AYET
+                                </span>
+                                <i class="ph ph-book-open-text text-2xl text-gray-300 group-hover:text-yaprak transition-colors"></i>
+                            </div>
+
+                            <p class="font-serif text-lg text-antrasit mb-4 line-clamp-3 leading-relaxed group-hover:text-black transition-colors">
+                                "@fav.TextPreview"
+                            </p>
+
+                            <p class="text-sm font-bold text-gray-400 group-hover:text-yaprak transition-colors">
+                                @fav.SourceInfo
+                            </p>
+                        </a>
+
+                        <div class="border-t border-gray-100 mt-5 pt-4 flex justify-end">
+                            <form method="post" action="/Favori/Sil/@fav.Id">
+                                <button type="submit" class="delete-btn" title="Favorilerden Kaldır">
+                                    <i class="ph ph-trash text-lg"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-16 opacity-60">
+                <i class="ph ph-heart-break text-5xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500 text-lg">Henüz favori ayetin bulunmuyor.</p>
+                <a href="/Sure" class="text-yaprak hover:underline mt-2 inline-block text-sm font-medium">Keşfetmeye Başla</a>
+            </div>
+        }
+    </div>
+
+    <div id="hadislerTab" class="hidden fade-in">
+        @if (Model.Hadisler.Any())
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach (var fav in Model.Hadisler)
+                {
+                    <div class="fav-card group">
+                        <a href="/Hadis/Detay/@fav.RefId" class="block flex-grow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-[10px] font-bold tracking-widest text-altin uppercase bg-altin/10 px-3 py-1 rounded-full border border-altin/20">
+                                    HADİS
+                                </span>
+                                <i class="ph ph-quotes text-2xl text-gray-300 group-hover:text-altin transition-colors"></i>
+                            </div>
+
+                            <p class="font-serif text-lg text-antrasit italic mb-4 line-clamp-3 leading-relaxed group-hover:text-black transition-colors">
+                                "@fav.TextPreview"
+                            </p>
+
+                            <p class="text-sm font-bold text-gray-400 group-hover:text-altin transition-colors">
+                                @fav.SourceInfo
+                            </p>
+                        </a>
+
+                        <div class="border-t border-gray-100 mt-5 pt-4 flex justify-end">
+                            <form method="post" action="/Favori/Sil/@fav.Id">
+                                <button type="submit" class="delete-btn" title="Favorilerden Kaldır">
+                                    <i class="ph ph-trash text-lg"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-16 opacity-60">
+                <i class="ph ph-heart-break text-5xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500 text-lg">Henüz favori hadisin bulunmuyor.</p>
+                <a href="/Hadis" class="text-altin hover:underline mt-2 inline-block text-sm font-medium">Hadisleri İncele</a>
+            </div>
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        function switchTab(tabName, btnElement) {
+            const ayetTab = document.getElementById("ayetlerTab");
+            const hadisTab = document.getElementById("hadislerTab");
+            const tabs = document.querySelectorAll(".tab-btn");
+
+            // Buton stillerini güncelle
+            tabs.forEach(t => t.classList.remove("tab-active"));
+            btnElement.classList.add("tab-active");
+
+            // İçeriği değiştir
+            if (tabName === "ayetler") {
+                ayetTab.classList.remove("hidden");
+                hadisTab.classList.add("hidden");
+            } else {
+                hadisTab.classList.remove("hidden");
+                ayetTab.classList.add("hidden");
+            }
+        }
+    </script>
+}

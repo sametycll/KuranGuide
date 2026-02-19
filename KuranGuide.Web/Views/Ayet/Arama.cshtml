@@ -1,0 +1,58 @@
+﻿@model AramaViewModel
+
+@{
+    ViewData["Title"] = $"Arama: {Model.Sorgu}";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+
+<div class="max-w-4xl mx-auto py-10 px-4">
+
+    <div class="mb-10">
+        <h1 class="text-2xl font-serif text-[#2C3E50]">
+            "<span class="text-[#5A7D7C]">@Model.Sorgu</span>" için arama sonuçları
+        </h1>
+        <p class="text-gray-500 mt-2">Toplam @Model.Sonuclar.Count sonuç bulundu.</p>
+    </div>
+
+    @if (!Model.Sonuclar.Any())
+    {
+        <div class="bg-gray-50 rounded-2xl p-10 text-center border border-dashed border-gray-300">
+            <i class="ph ph-magnifying-glass text-4xl text-gray-300 mb-4 block"></i>
+            <span class="text-gray-500">Aradığınız kriterlere uygun ayet bulunamadı.</span>
+        </div>
+    }
+    else
+    {
+        <div class="space-y-6">
+            @foreach (var ayet in Model.Sonuclar)
+            {
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-[#5A7D7C]/10 text-[#5A7D7C] px-3 py-1 rounded-lg text-sm font-bold">
+                            @ayet.SureId. Sûre, @ayet.AyetNo. Ayet
+                        </span>
+
+                        <a href="/Ayet/Detay/@ayet.Id" class="text-gray-400 hover:text-[#5A7D7C] flex items-center gap-1 text-sm font-medium transition-colors">
+                            İncele <i class="ph ph-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <p class="font-serif text-lg text-[#2C3E50] leading-relaxed">
+                        @ayet.Meal
+                    </p>
+
+                    @if (ayet.TemaAdi != null)
+                    {
+                        <div class="mt-4 pt-4 border-t border-gray-50">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">İlgili Tema:</span>
+                            <span class="ml-2 text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">@ayet.TemaAdi</span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+

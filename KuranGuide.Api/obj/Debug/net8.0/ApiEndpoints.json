@@ -1,0 +1,728 @@
+[
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AyetAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/ayet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AyetAdminController",
+    "Method": "Create",
+    "RelativePath": "api/admin/ayet",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Ayet.AyetCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AyetAdminController",
+    "Method": "Get",
+    "RelativePath": "api/admin/ayet/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AyetAdminController",
+    "Method": "Update",
+    "RelativePath": "api/admin/ayet/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Ayet.AyetUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AyetAdminController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/ayet/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.HadisAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/hadis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.HadisAdminController",
+    "Method": "Create",
+    "RelativePath": "api/admin/hadis",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Hadis.HadisCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.HadisAdminController",
+    "Method": "Get",
+    "RelativePath": "api/admin/hadis/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.HadisAdminController",
+    "Method": "Update",
+    "RelativePath": "api/admin/hadis/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Hadis.HadisUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.HadisAdminController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/hadis/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.KullaniciAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/kullanici",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.KullaniciAdminController",
+    "Method": "Create",
+    "RelativePath": "api/admin/kullanici",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Kullanici.KullaniciCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.KullaniciAdminController",
+    "Method": "Get",
+    "RelativePath": "api/admin/kullanici/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.KullaniciAdminController",
+    "Method": "Update",
+    "RelativePath": "api/admin/kullanici/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Kullanici.KullaniciDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.KullaniciAdminController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/kullanici/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AdminStatsController",
+    "Method": "GetAyetCount",
+    "RelativePath": "api/admin/stats/ayet-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AdminStatsController",
+    "Method": "GetHadisCount",
+    "RelativePath": "api/admin/stats/hadis-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AdminStatsController",
+    "Method": "LatestAyetler",
+    "RelativePath": "api/admin/stats/latest-ayetler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AdminStatsController",
+    "Method": "LatestHadisler",
+    "RelativePath": "api/admin/stats/latest-hadisler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.AdminStatsController",
+    "Method": "GetTemaCount",
+    "RelativePath": "api/admin/stats/tema-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.TemaAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/tema",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.TemaAdminController",
+    "Method": "Create",
+    "RelativePath": "api/admin/tema",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Tema.TemaCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.TemaAdminController",
+    "Method": "Get",
+    "RelativePath": "api/admin/tema/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.TemaAdminController",
+    "Method": "Update",
+    "RelativePath": "api/admin/tema/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Tema.TemaUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.Admin.TemaAdminController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/tema/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Auth.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Auth.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AuthController",
+    "Method": "ResetPasswordDirect",
+    "RelativePath": "api/Auth/reset-password-direct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "KuranGuide.Application.DTOs.Auth.ResetPasswordDirectDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AyetController",
+    "Method": "GetAll",
+    "RelativePath": "api/Ayet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AyetController",
+    "Method": "GetById",
+    "RelativePath": "api/Ayet/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AyetController",
+    "Method": "Search",
+    "RelativePath": "api/Ayet/arama",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.AyetController",
+    "Method": "GetDailyAyet",
+    "RelativePath": "api/Ayet/gunun-ayeti",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.FavoriController",
+    "Method": "GetUserFavorites",
+    "RelativePath": "api/Favori",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.FavoriController",
+    "Method": "AddFavorite",
+    "RelativePath": "api/Favori",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "KuranGuide.Application.DTOs.Favori.AddFavoriDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.FavoriController",
+    "Method": "Delete",
+    "RelativePath": "api/Favori/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.FavoriController",
+    "Method": "Toggle",
+    "RelativePath": "api/Favori/toggle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "KuranGuide.Application.DTOs.Favori.AddFavoriDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.HadisController",
+    "Method": "GetAll",
+    "RelativePath": "api/Hadis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.HadisController",
+    "Method": "GetById",
+    "RelativePath": "api/Hadis/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.HadisController",
+    "Method": "Search",
+    "RelativePath": "api/Hadis/arama",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.HadisController",
+    "Method": "GetDailyHadis",
+    "RelativePath": "api/Hadis/gunun-hadisi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.SearchController",
+    "Method": "Search",
+    "RelativePath": "api/Search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.SureController",
+    "Method": "GetAll",
+    "RelativePath": "api/Sure",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.SureController",
+    "Method": "GetDetail",
+    "RelativePath": "api/Sure/{sureNo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sureNo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.TemaController",
+    "Method": "GetAll",
+    "RelativePath": "api/Tema",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.TemaController",
+    "Method": "GetById",
+    "RelativePath": "api/Tema/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.TemaController",
+    "Method": "GetAyetler",
+    "RelativePath": "api/Tema/{id}/ayetler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KuranGuide.Api.Controllers.TemaController",
+    "Method": "GetHadisler",
+    "RelativePath": "api/Tema/{id}/hadisler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

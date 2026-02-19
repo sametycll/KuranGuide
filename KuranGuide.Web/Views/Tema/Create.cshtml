@@ -1,0 +1,53 @@
+﻿@model TemaViewModel
+@{
+    ViewData["Title"] = "Yeni Tema Ekle";
+}
+
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-md border">
+
+    <h1 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-3">
+        <i class="ph ph-plus-circle text-3xl text-yaprak"></i>
+        Yeni Tema Ekle
+    </h1>
+
+    <form method="post">
+
+        <!-- Tema Adı -->
+        <label class="block mb-4">
+            <span class="text-gray-700 font-medium">Tema Adı</span>
+            <input asp-for="TemaAdi"
+                   class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-yaprak focus:border-yaprak" />
+        </label>
+
+        <!-- İkon -->
+        <label class="block mb-4">
+            <span class="text-gray-700 font-medium">İkon (Phosphor Icon Class)</span>
+            <input asp-for="Icon"
+                   placeholder="ör: ph-hands-praying"
+                   class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-yaprak focus:border-yaprak" />
+            <small class="text-gray-500">Icon listesi: https://phosphoricons.com</small>
+        </label>
+
+        <!-- Açıklama -->
+        <label class="block mb-6">
+            <span class="text-gray-700 font-medium">Açıklama</span>
+            <textarea asp-for="Aciklama"
+                      rows="3"
+                      class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-yaprak focus:border-yaprak"></textarea>
+        </label>
+
+        <!-- Buttons -->
+        <div class="flex justify-between mt-8">
+
+            <a href="/Admin/Tema"
+               class="px-4 py-2 rounded-lg border hover:bg-gray-100 text-gray-700">
+                Geri Dön
+            </a>
+
+            <button type="submit"
+                    class="px-6 py-2 bg-yaprak text-white rounded-lg hover:bg-yaprak/90 shadow-md">
+                Kaydet
+            </button>
+        </div>
+    </form>
+</div>

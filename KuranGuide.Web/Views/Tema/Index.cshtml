@@ -1,0 +1,103 @@
+﻿@model List<TemaViewModel>
+
+@{
+    ViewData["Title"] = "Temalar";
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-semibold text-gray-800">Temalar</h1>
+    <a href="/Admin/Tema/Create"
+       class="px-4 py-2 bg-yaprak text-white rounded-lg hover:bg-yaprak/90">
+        + Yeni Tema
+    </a>
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow border">
+    <table class="w-full text-left">
+        <thead>
+            <tr class="text-gray-500 border-b">
+                <th class="py-3">ID</th>
+                <th>Ad</th>
+                <th>İkon</th>
+                <th>Açıklama</th>
+                <th class="text-right pr-2">İşlemler</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="py-3">@item.Id</td>
+                        <td>@item.TemaAdi</td>
+                        <td><i class="ph @item.Icon text-xl"></i></td>
+                        <td>@item.Aciklama</td>
+                        <td class="text-right">
+                            <a href="/Admin/Tema/Edit/@item.Id" class="text-blue-600 mr-3">Düzenle</a>
+                            <a href="javascript:void(0)"
+                               onclick="openDeleteModal(@item.Id)"
+                               class="text-red-600 hover:text-red-800">
+                                Sil
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- DELETE CONFIRM MODAL -->
+<div id="deleteModal"
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden justify-center items-center z-50">
+
+    <div class="bg-white w-[380px] p-6 rounded-2xl shadow-xl border">
+
+        <h2 class="text-xl font-semibold text-antrasit mb-4">
+            Tema Silinsin mi?
+        </h2>
+
+        <p class="text-gray-600 text-sm mb-6">
+            Bu temayı silmek üzeresiniz. Bu işlem geri alınamaz.
+        </p>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeDeleteModal()"
+                    class="px-4 py-2 rounded-lg border hover:bg-gray-100">
+                Vazgeç
+            </button>
+
+            <a id="deleteConfirmBtn"
+               href="#"
+               class="px-5 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 shadow">
+                Sil
+            </a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function openDeleteModal(id) {
+            document.getElementById("deleteConfirmBtn").href = "/Admin/Tema/Delete/" + id;
+            document.getElementById("deleteModal").classList.remove("hidden");
+            document.getElementById("deleteModal").classList.add("flex");
+        }
+
+        function closeDeleteModal() {
+            document.getElementById("deleteModal").classList.add("hidden");
+            document.getElementById("deleteModal").classList.remove("flex");
+        }
+    </script>
+}
+
+

@@ -1,0 +1,129 @@
+﻿
+@model List<KuranGuide.Web.Models.HadisViewModel>
+@{
+    ViewData["Title"] = "Hadis Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+        <h1 class="text-3xl font-bold text-[#2C3E50] tracking-tight">Hadisler</h1>
+        <p class="text-gray-500 text-sm mt-1">Sistemdeki hadis-i şerif kayıtlarını buradan yönetebilirsiniz.</p>
+    </div>
+
+    <a href="/Admin/AdminHadis/Create"
+       class="group flex items-center gap-2 bg-[#5A7D7C] text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-[#5A7D7C]/20 hover:bg-[#2C3E50] transition-all duration-300 hover:-translate-y-1">
+        <i class="ph ph-plus-circle text-xl"></i>
+        <span>Yeni Hadis Ekle</span>
+    </a>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div id="alertBox"
+         class="max-w-xxl mx-auto mt-6 bg-green-50 border border-green-300 text-green-800 px-4 py-3 rounded-xl
+                shadow-lg text-center font-medium transition duration-300 opacity-100">
+        @TempData["Success"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div id="alertBox"
+         class="max-w-xxl mx-auto mt-6 bg-red-50 border border-red-300 text-red-800 px-4 py-3 rounded-xl
+                shadow-lg text-center font-medium transition duration-300 opacity-100">
+        @TempData["Error"]
+    </div>
+}
+
+<div class="bg-white border border-gray-100 rounded-3xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="flex flex-col items-center justify-center py-20 text-center">
+            <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-300">
+                <i class="ph ph-quotes text-4xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-[#2C3E50]">Henüz Hadis Yok</h3>
+            <p class="text-gray-400 text-sm max-w-xs mx-auto mt-2">Veritabanına hadis eklemek için yukarıdaki butonu kullanın.</p>
+        </div>
+    }
+    else
+    {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50/50 border-b border-gray-100 text-xs uppercase text-gray-500 font-semibold tracking-wider">
+                        <th class="px-6 py-5">Kaynak</th>
+                        <th class="px-6 py-5">Tema</th>
+                        <th class="px-6 py-5">Hadis Metni</th>
+                        <th class="px-8 py-5 text-right">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="group hover:bg-gray-50/80 transition-colors duration-200">
+
+                            <td class="px-6 py-5 align-top">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center text-xl border border-[#D4AF37]/20">
+                                        <i class="ph ph-scroll"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-[#2C3E50]">@item.Kaynak</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-5 align-top">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
+                                    <i class="ph ph-hash"></i>
+                                     #@item.TemaAdi
+                                </span>
+                            </td>
+
+                            <td class="px-6 py-5 align-top">
+                                <p class="text-sm text-[#2C3E50] line-clamp-2 font-serif italic max-w-xl leading-relaxed">
+                                    "@item.Metin"
+                                </p>
+                            </td>
+
+                            <td class="px-8 py-5 text-right align-top">
+                                <div class="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity pt-1">
+                                    <a href="/Admin/AdminHadis/Edit?id=@item.Id"
+                                       class="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 transition-all"
+                                       title="Düzenle">
+                                        <i class="ph ph-pencil-simple text-lg"></i>
+                                    </a>
+
+                                    <a href="/Admin/AdminHadis/Delete?id=@item.Id"
+                                       onclick="return confirm('Bu hadisi silmek istediğinize emin misiniz?')"
+                                       class="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center hover:border-red-200 hover:bg-red-50 hover:text-red-600 transition-all"
+                                       title="Sil">
+                                        <i class="ph ph-trash text-lg"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+
+
+ <script>
+    const alertBox = document.getElementById("alertBox");
+    if (alertBox) {
+        setTimeout(() => {
+            alertBox.style.opacity = "0";
+            alertBox.style.transform = "translateY(-10px)";
+        }, 2000);
+
+        setTimeout(() => {
+            alertBox.remove();
+        }, 2600);
+    }
+</script> 

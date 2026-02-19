@@ -1,0 +1,242 @@
+﻿@model SureDetayViewModel
+
+@{
+    ViewData["Title"] = Model.SureAdi;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        /* 1. Arkaplan */
+        body {
+            background:
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.035) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(90, 125, 124, 0.045) 0%, transparent 50%),
+                #F7F7F4;
+        }
+
+        /* 2. Ayet Kartı */
+        .ayat-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .ayat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #D4AF37;
+            box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Tipografi */
+        .font-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            line-height: 2.2;
+            color: #2C3E50;
+        }
+        
+        .font-meal {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #4B5563;
+        }
+
+        /* Arama Kutusu */
+        .search-input {
+            background: rgba(255, 255, 255, 0.85); /* Biraz daha opak yapıldı arkası görünmesin diye */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            background: #ffffff;
+            border-color: #D4AF37;
+            box-shadow: 0 4px 20px -5px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Ayet No Rozeti */
+        .ayat-badge {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(90, 125, 124, 0.1);
+            color: #5A7D7C;
+            font-weight: bold;
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .ayat-card:hover .ayat-badge {
+            background: #D4AF37;
+            color: white;
+        }
+    </style>
+}
+
+<div class="max-w-4xl mx-auto py-14 px-4">
+
+    <div class="text-center mb-8 relative">
+        <span class="text-[11px] font-bold tracking-[0.2em] text-altin uppercase bg-altin/10 px-4 py-1.5 rounded-full border border-altin/20 inline-block mb-5">
+            @Model.Yer &bull; @Model.Ayetler.Count AYET
+        </span>
+        
+        <h1 class="font-serif text-5xl text-antrasit mb-3 font-medium tracking-tight">
+            @Model.SureAdi
+        </h1>
+        
+        <p class="font-arabic text-3xl text-gray-400 mb-8 opacity-60">@Model.ArapcaAdi</p>
+
+        @if (Model.SureNo != 1 && Model.SureNo != 9)
+        {
+            <div class="mb-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="Besmele" class="h-12 mx-auto opacity-70 hover:opacity-100 transition-opacity">
+            </div>
+        }
+    </div>
+
+    <div class="top-[88px] z-40 mb-10 mx-auto max-w-lg pt-4 pb-2">
+        <div class="relative group shadow-xl shadow-gray-200/50 rounded-full">
+            <input type="text"
+                   id="ayetSearch"
+                   placeholder="Ayet ara... (Örn: 'Namaz' veya '255')"
+                   class="search-input w-full py-4 pl-14 pr-6 rounded-full text-lg text-antrasit placeholder-gray-400 outline-none">
+            
+            <i class="ph ph-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-altin transition-colors"></i>
+        </div>
+    </div>
+
+    <div class="space-y-6" id="ayetListesi">
+        @foreach (var ayet in Model.Ayetler)
+        {
+            <div class="ayat-card group"
+                 id="ayet-@ayet.AyetNo"
+                 data-no="@ayet.AyetNo"
+                 data-meal="@ayet.Meal">
+
+                <div class="flex justify-between items-start mb-6">
+                    <div class="ayat-badge">
+                        @ayet.AyetNo
+                    </div>
+
+                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <a href="/Ayet/Detay/@ayet.Id" class="w-9 h-9 rounded-full bg-gray-50 text-gray-400 flex items-center justify-center hover:bg-yaprak hover:text-white transition-colors" title="Detay">
+                            <i class="ph ph-arrow-square-out text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <p class="font-arabic text-right mb-6" dir="rtl">
+                    @ayet.ArapcaMetin
+                </p>
+
+                <p class="font-meal mb-6 pl-4 border-l-2 border-gray-200 group-hover:border-altin transition-colors">
+                    @ayet.Meal
+                </p>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+                    <button type="button"
+                            class="favori-toggle flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 text-xs font-bold uppercase tracking-wider text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors"
+                            data-type="ayet"
+                            data-refid="@ayet.Id">
+                         <i class="ph ph-heart text-lg"></i>
+                         <span>Favori</span>
+                    </button>
+                    
+                    <button type="button" 
+                            onclick="copyToClipboard(`@ayet.Meal - @Model.SureAdi @ayet.AyetNo. Ayet`)"
+                            class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 text-xs font-bold uppercase tracking-wider text-gray-500 hover:bg-altin/10 hover:text-altin transition-colors">
+                        <i class="ph ph-copy text-lg"></i>
+                        <span>Kopyala</span>
+                    </button>
+                </div>
+
+            </div>
+        }
+
+        <div id="noResult" class="hidden text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100/80 mb-3">
+                <i class="ph ph-magnifying-glass text-2xl text-gray-400"></i>
+            </div>
+            <p class="text-gray-500 font-serif">Aradığınız kriterde ayet bulunamadı.</p>
+        </div>
+    </div>
+
+    <div class="flex justify-between mt-16 pt-8 border-t border-gray-200/60">
+        @if (Model.SureNo > 1)
+        {
+            <a href="/Sure/Detay/@(Model.SureNo - 1)" class="group flex items-center gap-3 pl-4 pr-6 py-3 rounded-full bg-white border border-gray-100 shadow-sm hover:border-yaprak/30 hover:shadow-md transition-all">
+                <i class="ph ph-arrow-left text-gray-400 group-hover:text-yaprak transition-colors"></i>
+                <div class="text-left">
+                    <span class="block text-xs text-gray-400 uppercase tracking-wider font-bold">Önceki</span>
+                    <span class="font-serif text-antrasit group-hover:text-yaprak">@(Model.SureNo - 1). Sure</span>
+                </div>
+            </a>
+        }
+        else
+        {
+            <div></div>
+        }
+
+        @if (Model.SureNo < 114)
+        {
+             <a href="/Sure/Detay/@(Model.SureNo + 1)" class="group flex items-center gap-3 pl-6 pr-4 py-3 rounded-full bg-white border border-gray-100 shadow-sm hover:border-yaprak/30 hover:shadow-md transition-all">
+                <div class="text-right">
+                    <span class="block text-xs text-gray-400 uppercase tracking-wider font-bold">Sonraki</span>
+                    <span class="font-serif text-antrasit group-hover:text-yaprak">@(Model.SureNo + 1). Sure</span>
+                </div>
+                <i class="ph ph-arrow-right text-gray-400 group-hover:text-yaprak transition-colors"></i>
+            </a>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function temizle(metin) {
+            if (!metin) return "";
+            return metin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/['\-’`"“”.]/g, '').replace(/i/g, 'İ').toLowerCase();
+        }
+
+        const searchInput = document.getElementById('ayetSearch');
+        const cards = document.querySelectorAll('.ayat-card');
+        const noResult = document.getElementById('noResult');
+
+        searchInput.addEventListener('input', function(e) {
+            const aranan = temizle(e.target.value);
+            let gorunenSayisi = 0;
+
+            cards.forEach(card => {
+                const meal = temizle(card.getAttribute('data-meal'));
+                const no = card.getAttribute('data-no');
+
+                if (meal.includes(aranan) || no.includes(aranan)) {
+                    card.style.display = "block";
+                    gorunenSayisi++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            if (gorunenSayisi === 0) {
+                noResult.classList.remove('hidden');
+            } else {
+                noResult.classList.add('hidden');
+            }
+        });
+
+        function copyToClipboard(text) {
+             navigator.clipboard.writeText(text);
+        }
+    </script>
+}
