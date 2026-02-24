@@ -1,8 +1,6 @@
 ﻿using KuranGuide.Application.Interfaces.Repositories;
 using KuranGuide.Application.Interfaces.Services;
 using KuranGuide.Domain.Entities;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace KuranGuide.Application.Services
 {
@@ -18,10 +16,12 @@ namespace KuranGuide.Application.Services
         {
             var userHash = new Kullanici
             {
+                Ad = user.Ad,
+                Soyad = user.Soyad,
                 Email = user.Email,
-                CreatedAt = user.CreatedAt,
+                CreatedAt = DateTime.UtcNow,
                 Role = user.Role,
-                PasswordHash = HashPassword(user.PasswordHash)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash)
             };
             await _repo.AddAsync(userHash);
             await _repo.SaveChangesAsync();
@@ -32,18 +32,11 @@ namespace KuranGuide.Application.Services
         {
             var user = await _repo.GetByIdAsync(userId);
             if (user == null) return false;
-            user.PasswordHash = HashPassword(newPassword);
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
             await _repo.UpdateAsync(user);
             await _repo.SaveChangesAsync();
 
             return true;
-        }
-        private string HashPassword(string password)
-        {
-            using var sha = SHA256.Create();
-            var bytes = Encoding.UTF8.GetBytes(password);
-            var hash = sha.ComputeHash(bytes);
-            return Convert.ToBase64String(hash);
         }
 
         public async Task<Kullanici> UpdateAsync(Kullanici user)

@@ -1,0 +1,38 @@
+# Build asamasi
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Proje dosyalarini kopyala
+COPY KuranGuide.Domain/KuranGuide.Domain.csproj KuranGuide.Domain/
+COPY KuranGuide.Application/KuranGuide.Application.csproj KuranGuide.Application/
+COPY KuranGuide.Infrastructure/KuranGuide.Infrastructure.csproj KuranGuide.Infrastructure/
+COPY KuranGuide.Api/KuranGuide.Api.csproj KuranGuide.Api/
+
+# NuGet paketlerini geri yukle
+RUN dotnet restore KuranGuide.Api/KuranGuide.Api.csproj
+
+# Tum kaynak kodlari kopyala
+COPY . .
+
+# Uygulamayi derle
+RUN dotnet publish KuranGuide.Api/KuranGuide.Api.csproj -c Release -o /app/publish --no-restore
+
+# Calistirma asamasi
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Guvenlik: root olmayan kullanici
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
+COPY --from=build /app/publish .
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+ENTRYPOINT ["dotnet", "KuranGuide.Api.dll"]

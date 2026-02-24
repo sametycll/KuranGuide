@@ -10,7 +10,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\KuranGuide.Application.csproj",
         "projectName": "KuranGuide.Application",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\KuranGuide.Application.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -58,6 +58,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -97,7 +101,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
         "projectName": "KuranGuide.Domain",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -166,7 +170,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\KuranGuide.Web.csproj",
         "projectName": "KuranGuide.Web",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\KuranGuide.Web.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -216,15 +220,15 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.24, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.7, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[8.0.1, )"
             }
           },
           "imports": [

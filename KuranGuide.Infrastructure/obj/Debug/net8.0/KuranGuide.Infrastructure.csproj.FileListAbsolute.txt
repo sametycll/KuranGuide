@@ -17,3 +17,4 @@ D:\MyRepo\KuranGuide\KuranGuide.Infrastructure\obj\Debug\net8.0\KuranGuide.Infra
 D:\MyRepo\KuranGuide\KuranGuide.Infrastructure\obj\Debug\net8.0\ref\KuranGuide.Infrastructure.dll
 D:\MyRepo\KuranGuide\KuranGuide.Infrastructure\bin\Debug\net8.0\KuranGuide.Infrastructure.runtimeconfig.json
 D:\MyRepo\KuranGuide\KuranGuide.Infrastructure\obj\Debug\net8.0\KuranGuide.Infrastructure.genruntimeconfig.cache
+D:\MyRepo\KuranGuide\KuranGuide.Infrastructure\obj\Debug\net8.0\KuranGuide.Infrastructure.sourcelink.json

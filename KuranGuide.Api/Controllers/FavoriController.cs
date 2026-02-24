@@ -42,7 +42,7 @@ namespace KuranGuide.Api.Controllers
                     Id = f.Id,
                     Type = f.Type,
                     RefId = f.RefId,
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.UtcNow
                 };
 
                 if (f.Type == "ayet")
@@ -95,7 +95,7 @@ namespace KuranGuide.Api.Controllers
                 UserId = userId,
                 Type = model.Type,
                 RefId = model.RefId,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
 
             var created = await _favoriService.AddFavoriteAsync(favori);
@@ -105,7 +105,7 @@ namespace KuranGuide.Api.Controllers
                 Id = created.Id,
                 Type = created.Type,
                 RefId = created.RefId,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             });
         }
 

@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Aradığınız Sayfa Bulunamadı";
+}
+
+<div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
+    <!-- Dekoratif Elementler -->
+    <div class="relative mb-8">
+        <div class="w-32 h-32 md:w-48 md:h-48 bg-yaprak/5 rounded-full flex items-center justify-center animate-pulse">
+            <i class="ph ph-warning-circle text-7xl md:text-9xl text-yaprak/20"></i>
+        </div>
+        <div class="absolute -top-4 -right-4 w-12 h-12 bg-altin/10 rounded-full flex items-center justify-center">
+            <i class="ph ph-magnifying-glass text-2xl text-altin"></i>
+        </div>
+    </div>
+
+    <h1 class="font-serif text-6xl md:text-8xl font-bold text-antrasit mb-4">404</h1>
+    <h2 class="font-serif text-2xl md:text-3xl font-semibold text-yaprak mb-6">Aradığınız Sayfa Bulunamadı</h2>
+    
+    <p class="max-w-md text-gray-500 mb-10 leading-relaxed font-light">
+        Maalesef ulaşmaya çalıştığınız sayfa mevcut değil ya da kaldırılmış olabilir. 
+        Kuran-ı Kerim'de aradığınızı bulmaya devam etmek ister misiniz?
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/" class="px-8 py-3.5 rounded-xl bg-yaprak text-white font-medium hover:bg-antrasit transition-all shadow-lg shadow-yaprak/20 flex items-center gap-2">
+            <i class="ph ph-house"></i>
+            Ana Sayfaya Dön
+        </a>
+        <a href="/Home/Contact" class="px-8 py-3.5 rounded-xl bg-white border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-all flex items-center gap-2">
+            <i class="ph ph-envelope"></i>
+            Bize Bildirin
+        </a>
+    </div>
+
+    <!-- Alt Kısım Süsleme -->
+    <div class="mt-16 opacity-10">
+        <i class="ph ph-mosque text-6xl"></i>
+    </div>
+</div>

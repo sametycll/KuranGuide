@@ -22,6 +22,7 @@ namespace KuranGuide.Application.Services
         public async Task<Favori> AddFavoriteAsync(Favori favori)
         {
             var created = await _repo.AddAsync(favori);
+            await _repo.SaveChangesAsync();
             return created;
         }
 
@@ -44,7 +45,7 @@ namespace KuranGuide.Application.Services
             if (existing != null)
             {
                 await _repo.DeleteAsync(existing);
-
+                await _repo.SaveChangesAsync();
                 return new ToggleFavoriResult
                 {
                     Added = false,
@@ -61,6 +62,7 @@ namespace KuranGuide.Application.Services
             };
 
             var created = await _repo.AddAsync(yeni);
+            await _repo.SaveChangesAsync();
 
             return new ToggleFavoriResult
             {

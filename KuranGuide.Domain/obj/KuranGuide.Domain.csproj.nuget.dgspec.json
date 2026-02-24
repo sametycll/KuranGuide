@@ -10,7 +10,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
         "projectName": "KuranGuide.Domain",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [

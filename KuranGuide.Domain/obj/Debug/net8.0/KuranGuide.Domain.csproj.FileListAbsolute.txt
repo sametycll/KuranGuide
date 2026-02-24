@@ -9,3 +9,4 @@ D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.dll
 D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\refint\KuranGuide.Domain.dll
 D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.pdb
 D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\ref\KuranGuide.Domain.dll
+D:\MyRepo\KuranGuide\KuranGuide.Domain\obj\Debug\net8.0\KuranGuide.Domain.sourcelink.json

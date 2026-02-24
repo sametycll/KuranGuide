@@ -1,4 +1,4 @@
-using KuranGuide.Application.DTOs.General;
+ï»¿using KuranGuide.Application.DTOs.General;
 using KuranGuide.Web.Models;
 using KuranGuide.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,17 +22,17 @@ namespace KuranGuide.Web.Controllers
 
             try
             {
-                // API çaðrýlarý
+                // API Ã§aÄŸrÄ±larÄ±
                 gununAyeti = await _api.GetAsync<AyetViewModel>("api/ayet/gunun-ayeti");
                 gununHadisi = await _api.GetAsync<HadisViewModel>("api/hadis/gunun-hadisi");
                 temalar = await _api.GetAsync<List<TemaViewModel>>("api/tema");
             }
             catch
             {
-                // API kapalýysa veya hata varsa program patlamasýn, null devam etsin
+                // API kapalÄ±ysa veya hata varsa program patlamasÄ±n, null devam etsin
             }
 
-            // 3. Favori Kontrolü
+            // 3. Favori KontrolÃ¼
             bool isFavoritedHadis = false;
             bool isFavoritedAyet = false;
             var token = Request.Cookies["jwt"];
@@ -47,7 +47,7 @@ namespace KuranGuide.Web.Controllers
                 }
                 catch
                 {
-                    // Token hatasý olursa akýþý bozma
+                    // Token hatasÄ± olursa akÄ±ÅŸÄ± bozma
                     isFavoritedHadis = false;
                     isFavoritedAyet = false;
                 }
@@ -59,7 +59,7 @@ namespace KuranGuide.Web.Controllers
                 GununHadisi = gununHadisi,
                 IsFavoritedHadis = isFavoritedHadis,
                 IsFavoritedAyet = isFavoritedAyet,
-                // Eðer temalar null ise boþ liste ata ki foreach döngüsü patlamasýn
+                // EÄŸer temalar null ise boÅŸ liste ata ki foreach dÃ¶ngÃ¼sÃ¼ patlamasÄ±n
                 PopulerTemalar = temalar?.Take(5).ToList() ?? new List<TemaViewModel>()
             };
 
@@ -75,15 +75,15 @@ namespace KuranGuide.Web.Controllers
             if (string.IsNullOrWhiteSpace(q))
                 return RedirectToAction("Index");
 
-            // URL'yi güvenli hale getir (boþluklarý %20 yapar vs.)
+            // URL'yi gÃ¼venli hale getir (boÅŸluklarÄ± %20 yapar vs.)
             var encodedQ = Uri.EscapeDataString(q);
 
-            // API çaðrýsý
+            // API Ã§aÄŸrÄ±sÄ±
             var results = await _api.GetAsync<SearchResponseDto>($"api/search?q={encodedQ}");
 
             ViewBag.Query = q;
 
-            // Eðer results null gelirse hata vermesin diye yeni obje oluþtur
+            // EÄŸer results null gelirse hata vermesin diye yeni obje oluÅŸtur
             return View(results ?? new SearchResponseDto());
         }
 
@@ -106,13 +106,23 @@ namespace KuranGuide.Web.Controllers
 
         }
 
-        //mail gönderme iþlemi simülasyonu
+        //mail gÃ¶nderme iÅŸlemi simÃ¼lasyonu
         [HttpPost]
         public IActionResult SendContact(string FullName, string Email, string Subject, string Message)
         {
-            // Burada mail gönderme iþlemi yapýlabilir.
-            TempData["Success"] = "Mesajýnýz bize ulaþtý. Teþekkür ederiz!";
+            // Burada mail gÃ¶nderme iÅŸlemi yapÄ±labilir.
+            TempData["Success"] = "MesajÄ±nÄ±z bize ulaÅŸtÄ±. TeÅŸekkÃ¼r ederiz!";
             return RedirectToAction("Contact");
+        }
+
+        [Route("Home/Error/{statusCode?}")]
+        public IActionResult Error(int? statusCode)
+        {
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
+            return View();
         }
 
     }

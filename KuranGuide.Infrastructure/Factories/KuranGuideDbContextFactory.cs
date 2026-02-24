@@ -1,11 +1,7 @@
 ﻿using KuranGuide.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace KuranGuide.Infrastructure.Factories
 {
@@ -13,11 +9,16 @@ namespace KuranGuide.Infrastructure.Factories
     {
         public KuranGuideDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<KuranGuideDbContext>();
+            // Migration sırasında appsettings.Development.json'dan connection string okunur
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../KuranGuide.Api"))
+                .AddJsonFile("appsettings.Development.json", optional: false)
+                .Build();
 
-            // Migration sırasında appsettings okunamadığı için burada connection string MANUEL verilir
+            var optionsBuilder = new DbContextOptionsBuilder<KuranGuideDbContext>();
             optionsBuilder.UseSqlServer(
-                "Server=DESKTOP-B1KU30T\\SQLEXPRESS2019;Initial Catalog=KuranGuideDb;User Id=sa;Password=768399;TrustServerCertificate=true;");
+                configuration.GetConnectionString("DefaultConnection"),
+                sql => sql.MigrationsAssembly("KuranGuide.Infrastructure"));
 
             return new KuranGuideDbContext(optionsBuilder.Options);
         }

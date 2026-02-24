@@ -8,7 +8,7 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\SAMET\\.nuget\\packages\\": {},
+    "D:\\NugetPackages": {},
     "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
@@ -19,7 +19,7 @@
       "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
       "projectName": "KuranGuide.Domain",
       "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
-      "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+      "packagesPath": "D:\\NugetPackages",
       "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [

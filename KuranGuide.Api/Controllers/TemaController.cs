@@ -26,6 +26,7 @@ namespace KuranGuide.Api.Controllers
 
         // GET: api/tema
         [HttpGet]
+        [ResponseCache(Duration = 300)] // 5 dakika cache
         public async Task<IActionResult> GetAll()
         {
             var temalar = await _temaService.GetAllAsync();
@@ -35,7 +36,7 @@ namespace KuranGuide.Api.Controllers
                 Id = t.Id,
                 TemaAdi = t.TemaAdi,
                 Aciklama = t.Aciklama,
-                Icon=t.Icon
+                Icon = t.Icon
             });
 
             return Ok(dto);
@@ -55,7 +56,7 @@ namespace KuranGuide.Api.Controllers
                 TemaAdi = tema.TemaAdi,
                 Aciklama = tema.Aciklama,
                 AnahtarKelimeler = tema.AnahtarKelimeler,
-                Icon=tema.Icon
+                Icon = tema.Icon
             };
 
             return Ok(dto);
@@ -94,6 +95,5 @@ namespace KuranGuide.Api.Controllers
 
             return Ok(dto);
         }
-
     }
 }

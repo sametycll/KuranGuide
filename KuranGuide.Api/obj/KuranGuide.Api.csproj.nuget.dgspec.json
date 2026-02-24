@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj": {}
+    "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj": {}
   },
   "projects": {
-    "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj": {
+    "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj",
+        "projectUniqueName": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj",
         "projectName": "KuranGuide.Api",
-        "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
-        "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\obj\\",
+        "projectPath": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj",
+        "packagesPath": "D:\\NugetPackages",
+        "outputPath": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
@@ -66,15 +66,15 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.24, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.24, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.24, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -82,9 +82,17 @@
               "target": "Package",
               "version": "[8.*, )"
             },
+            "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.24, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[8.1.4, )"
+            },
+            "System.Threading.RateLimiting": {
+              "target": "Package",
+              "version": "[10.0.3, )"
             }
           },
           "imports": [
@@ -116,7 +124,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\KuranGuide.Application.csproj",
         "projectName": "KuranGuide.Application",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\KuranGuide.Application.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -164,6 +172,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -203,7 +215,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
         "projectName": "KuranGuide.Domain",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\KuranGuide.Domain.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -272,7 +284,7 @@
         "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Infrastructure\\KuranGuide.Infrastructure.csproj",
         "projectName": "KuranGuide.Infrastructure",
         "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Infrastructure\\KuranGuide.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\SAMET\\.nuget\\packages\\",
+        "packagesPath": "D:\\NugetPackages",
         "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -339,11 +351,11 @@
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[8.0.0, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[8.0.1, )"
             }
           },
           "imports": [

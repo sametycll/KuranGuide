@@ -1,0 +1,33 @@
+# Build asamasi
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Proje dosyalarini kopyala
+COPY KuranGuide.Domain/KuranGuide.Domain.csproj KuranGuide.Domain/
+COPY KuranGuide.Application/KuranGuide.Application.csproj KuranGuide.Application/
+COPY KuranGuide.Web/KuranGuide.Web.csproj KuranGuide.Web/
+
+# NuGet paketlerini geri yukle
+RUN dotnet restore KuranGuide.Web/KuranGuide.Web.csproj
+
+# Tum kaynak kodlari kopyala
+COPY . .
+
+# Uygulamayi derle
+RUN dotnet publish KuranGuide.Web/KuranGuide.Web.csproj -c Release -o /app/publish --no-restore
+
+# Calistirma asamasi
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Guvenlik: root olmayan kullanici
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
+COPY --from=build /app/publish .
+
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+ENTRYPOINT ["dotnet", "KuranGuide.Web.dll"]

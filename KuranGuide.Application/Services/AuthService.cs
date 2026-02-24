@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace KuranGuide.Application.Services
@@ -33,9 +32,9 @@ namespace KuranGuide.Application.Services
                 Ad = dto.Ad,      
                 Soyad = dto.Soyad,
                 Email = dto.Email,
-                PasswordHash = HashPassword(dto.Password),
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Role = "User",
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
 
             await _kullaniciRepo.AddAsync(user);
@@ -46,14 +45,13 @@ namespace KuranGuide.Application.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
         {
-            var allUsers = await _kullaniciRepo.GetAllAsync();
-            var cleanEmail = dto.Email.Trim();
+            var cleanEmail = dto.Email.Trim().ToLower();
             var users = await _kullaniciRepo.FindAsync(x => x.Email.Trim().ToLower() == cleanEmail);
             var user = users.FirstOrDefault();
             if (user == null)
                 return null;
 
-            if (user.PasswordHash != HashPassword(dto.Password))
+            if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return null;
 
             return new LoginResponseDto
@@ -66,13 +64,8 @@ namespace KuranGuide.Application.Services
             };
         }
 
-        private string HashPassword(string password)
-        {
-            using var sha = SHA256.Create();
-            var bytes = Encoding.UTF8.GetBytes(password);
-            var hash = sha.ComputeHash(bytes);
-            return Convert.ToBase64String(hash);
-        }
+        // BCrypt kullanıldığı için ayrı bir hash metodu gerekmez.
+        // BCrypt.Net.BCrypt.HashPassword() ve BCrypt.Net.BCrypt.Verify() doğrudan çağrılır.
 
         private string GenerateToken(Kullanici user)
         {

@@ -13,3 +13,4 @@ D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Applicat
 D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\refint\KuranGuide.Application.dll
 D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.pdb
 D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\ref\KuranGuide.Application.dll
+D:\MyRepo\KuranGuide\KuranGuide.Application\obj\Debug\net8.0\KuranGuide.Application.sourcelink.json

@@ -17,6 +17,7 @@ namespace KuranGuide.Api.Controllers
         // GET: api/sure
         // Tüm sure listesi (Fatiha, Bakara...)
         [HttpGet]
+        [ResponseCache(Duration = 300)] // 5 dakika cache
         public async Task<IActionResult> GetAll()
         {
             var list = await _sureService.GetAllAsync();
@@ -32,7 +33,5 @@ namespace KuranGuide.Api.Controllers
             if (sure == null) return NotFound("Sure bulunamadı.");
             return Ok(sure);
         }
-
-
     }
 }

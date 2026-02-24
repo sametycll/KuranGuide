@@ -1,7 +1,6 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace KuranGuide.Web.Services
 {
@@ -9,35 +8,64 @@ namespace KuranGuide.Web.Services
     {
         private readonly HttpClient _client;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private static readonly JsonSerializerOptions _jsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
 
         public ApiClient(HttpClient client, IConfiguration config, IHttpContextAccessor accessor)
         {
             _client = client;
             _client.BaseAddress = new Uri(config["ApiBaseUrl"]);
-
             _httpContextAccessor = accessor;
         }
-        private HttpClient CreateClient(bool withAuth = false)
+
+        /// <summary>
+        /// JWT token'i cookie'den alir ve bir HttpRequestMessage'a ekler.
+        /// DefaultRequestHeaders'i degistirmez — thread-safe.
+        /// </summary>
+        private HttpRequestMessage CreateRequest(HttpMethod method, string endpoint, bool withAuth = false)
         {
-            // Zaten var olan client'ı kullanıyoruz.
-            var client = _client;
+            var request = new HttpRequestMessage(method, endpoint);
 
-            // Her çağrıda önce eski Authorization temizlenmeli
-            client.DefaultRequestHeaders.Authorization = null;
-
-            // Token gerekliyse ekle
             if (withAuth)
             {
-                var token = _httpContextAccessor.HttpContext.Request.Cookies["jwt"];
-
+                var token = _httpContextAccessor.HttpContext?.Request.Cookies["jwt"];
                 if (!string.IsNullOrEmpty(token))
                 {
-                    client.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
             }
 
-            return client;
+            return request;
+        }
+
+        private HttpRequestMessage CreateRequest(HttpMethod method, string endpoint, string token)
+        {
+            var request = new HttpRequestMessage(method, endpoint);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
+            return request;
+        }
+
+        // --------------------------------------------------------
+        // GET (Anonim)
+        // --------------------------------------------------------
+        public async Task<T?> GetAsync<T>(string endpoint)
+        {
+            var request = CreateRequest(HttpMethod.Get, endpoint);
+            var response = await _client.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+                return default;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(json, _jsonOptions);
         }
 
         public async Task<List<T>> GetListAsync<T>(string endpoint)
@@ -47,69 +75,38 @@ namespace KuranGuide.Web.Services
         }
 
         // --------------------------------------------------------
-        // GET (Anonim)
-        // --------------------------------------------------------
-        public async Task<T?> GetAsync<T>(string endpoint)
-        {
-            var client = CreateClient();
-            var response = await client.GetAsync(endpoint);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                // Hata mesajını oku ve konsola yaz veya breakpoint koy
-                var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"API Hatası: {errorContent}");
-                return default;
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-            var options = new System.Text.Json.JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true // Büyük/Küçük harf takıntısını kaldırır
-            };
-            return System.Text.Json.JsonSerializer.Deserialize<T>(json, options);
-        }
-
-        // --------------------------------------------------------
         // GET (Auth)
         // --------------------------------------------------------
         public async Task<T?> GetWithAuthAsync<T>(string endpoint, string token)
         {
-            var client = CreateClient(withAuth: false);
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-            }
-
-            var response = await client.GetAsync(endpoint);
+            var request = CreateRequest(HttpMethod.Get, endpoint, token);
+            var response = await _client.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
                 return default;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonSerializer.Deserialize<T>(json, _jsonOptions);
         }
-
 
         // --------------------------------------------------------
         // POST (Anonim)
         // --------------------------------------------------------
         public async Task<TResponse?> PostAsync<TRequest, TResponse>(string endpoint, TRequest body)
         {
-            var client = CreateClient();
+            var request = CreateRequest(HttpMethod.Post, endpoint);
+            request.Content = new StringContent(
+                JsonSerializer.Serialize(body, _jsonOptions),
+                Encoding.UTF8,
+                "application/json");
 
-            var json = JsonConvert.SerializeObject(body);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(endpoint, content);
+            var response = await _client.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
                 return default;
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TResponse>(responseJson);
+            return JsonSerializer.Deserialize<TResponse>(responseJson, _jsonOptions);
         }
 
         // --------------------------------------------------------
@@ -117,45 +114,48 @@ namespace KuranGuide.Web.Services
         // --------------------------------------------------------
         public async Task<TResponse?> PostWithAuthAsync<TRequest, TResponse>(string endpoint, TRequest body, string token)
         {
-            var client = CreateClient(withAuth: true);
+            var request = CreateRequest(HttpMethod.Post, endpoint, token);
+            request.Content = new StringContent(
+                JsonSerializer.Serialize(body, _jsonOptions),
+                Encoding.UTF8,
+                "application/json");
 
-            var json = JsonConvert.SerializeObject(body);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(endpoint, content);
+            var response = await _client.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
                 return default;
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TResponse>(responseJson);
+            return JsonSerializer.Deserialize<TResponse>(responseJson, _jsonOptions);
         }
 
+        // --------------------------------------------------------
+        // PUT (Auth)
+        // --------------------------------------------------------
         public async Task<TResponse?> PutWithAuthAsync<TRequest, TResponse>(string endpoint, TRequest body, string token)
         {
-            var client = CreateClient(withAuth: true);
+            var request = CreateRequest(HttpMethod.Put, endpoint, token);
+            request.Content = new StringContent(
+                JsonSerializer.Serialize(body, _jsonOptions),
+                Encoding.UTF8,
+                "application/json");
 
-            var json = JsonConvert.SerializeObject(body);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PutAsync(endpoint, content);
+            var response = await _client.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
                 return default;
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TResponse>(responseJson);
+            return JsonSerializer.Deserialize<TResponse>(responseJson, _jsonOptions);
         }
-
 
         // --------------------------------------------------------
         // DELETE (Auth)
         // --------------------------------------------------------
         public async Task<bool> DeleteWithAuthAsync(string endpoint, string token)
         {
-            var client = CreateClient(withAuth: true);
-
-            var response = await client.DeleteAsync(endpoint);
+            var request = CreateRequest(HttpMethod.Delete, endpoint, token);
+            var response = await _client.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
     }

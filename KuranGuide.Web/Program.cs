@@ -10,8 +10,6 @@ builder.Services.AddHttpClient<ApiClient>();
 
 builder.Services.AddControllersWithViews();
 
-
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -26,7 +24,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
 
-        // COOKIE'DEN TOKEN ALMAK ÝÇÝN ZORUNLU
+        // COOKIE'DEN TOKEN ALMAK Ä°Ã‡Ä°N ZORUNLU
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
@@ -37,36 +35,50 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
                 return Task.CompletedTask;
             },
-            // GÝRÝÞ YOK ? LOGIN
+            // GÄ°RÄ°Åž YOK ? LOGIN
             OnChallenge = context =>
             {
-                context.HandleResponse(); // default 401’i durdur
+                context.HandleResponse(); // default 401â€™i durdur
 
-                context.Response.Redirect("/Auth/Login");
+                // Admin gizleme
+                if (context.Request.Path.Value != null && context.Request.Path.Value.StartsWith("/admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Response.StatusCode = 404;
+                }
+                else
+                {
+                    context.Response.Redirect("/Auth/Login");
+                }
                 return Task.CompletedTask;
             },
 
-            // ROL YOK ? YETKÝSÝZ
+            // ROL YOK ? YETKÄ°SÄ°Z
             OnForbidden = context =>
             {
-                context.Response.Redirect("/Auth/YetkisizErisim");
+                // Admin gizleme
+                if (context.Request.Path.Value != null && context.Request.Path.Value.StartsWith("/admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Response.StatusCode = 404;
+                }
+                else
+                {
+                    context.Response.Redirect("/Auth/YetkisizErisim");
+                }
                 return Task.CompletedTask;
             }
 
         };
     });
 
-
-
 var app = builder.Build();
-
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-
     app.UseHsts();
 }
+
+app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -75,7 +87,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllerRoute(
     name: "default",
