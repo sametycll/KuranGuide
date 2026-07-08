@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KuranGuide.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb36f913bfd84a333e1c8aee95f7dd7b30070c5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f233762db6b0dbb5103c273e61bc06ef6024779b")]
 [assembly: System.Reflection.AssemblyProductAttribute("KuranGuide.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KuranGuide.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

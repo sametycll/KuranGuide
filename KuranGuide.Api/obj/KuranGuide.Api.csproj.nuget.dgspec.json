@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj": {}
+    "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj": {}
   },
   "projects": {
-    "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj": {
+    "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj",
+        "projectUniqueName": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj",
         "projectName": "KuranGuide.Api",
-        "projectPath": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\KuranGuide.Api.csproj",
+        "projectPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\KuranGuide.Api.csproj",
         "packagesPath": "D:\\NugetPackages",
-        "outputPath": "D:\\MyRepo\\KuranGuide\\kuranguide.api\\obj\\",
+        "outputPath": "D:\\MyRepo\\KuranGuide\\KuranGuide.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

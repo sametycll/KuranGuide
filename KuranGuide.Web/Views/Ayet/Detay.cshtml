@@ -1,4 +1,4 @@
-﻿@model KuranGuide.Web.Models.AyetDetailViewModel
+@model KuranGuide.Web.Models.AyetDetailViewModel
 @{
     ViewData["Title"] = "Ayet Detay";
 }
@@ -35,7 +35,7 @@
 
         /* Tipografi */
         .arabic-text {
-            font-family: 'Amiri', serif;
+            font-family: var(--arabic-font), serif;
             font-size: clamp(2rem, 4vw, 3rem);
             text-align: center;
             line-height: 2.2;
@@ -131,9 +131,9 @@
 
         <div class="w-px h-6 bg-gray-200"></div>
 
-        <button class="action-button group w-12 h-12 rounded-full bg-yaprak/10 text-yaprak flex items-center justify-center hover:bg-yaprak hover:text-white hover:shadow-md transition-all"
-                title="Dinle">
-            <i class="ph ph-play text-2xl ml-1"></i>
+        <button onclick="downloadAyet()" class="action-button group w-12 h-12 rounded-full bg-yaprak/10 text-yaprak flex items-center justify-center hover:bg-yaprak hover:text-white hover:shadow-md transition-all"
+                title="İndir">
+            <i class="ph ph-download-simple text-2xl"></i>
         </button>
 
         <div class="w-px h-6 bg-gray-200"></div>
@@ -169,7 +169,25 @@
 </main>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
+        function downloadAyet() {
+            const shell = document.querySelector('.ayet-shell');
+            if(shell) {
+                // html2canvas blur desteklemediği için arkaplanı hafif krem rengi yapıyoruz, 
+                // böylece şeffaf divin arkası düzgün gözükür.
+                html2canvas(shell, {
+                    backgroundColor: '#F7F7F4',
+                    scale: 2
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `Ayet_@(Model.Ayet.SureAdi)_@(Model.Ayet.AyetNo).png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            }
+        }
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(function() {
                 // İkon değişimi feedback

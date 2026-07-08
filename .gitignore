@@ -42,3 +42,6 @@ bld/
 # OS
 Thumbs.db
 .DS_Store
+
+appsettings.json
+appsettings.Development.json

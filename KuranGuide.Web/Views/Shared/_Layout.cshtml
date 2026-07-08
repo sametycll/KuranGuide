@@ -21,7 +21,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;500;600;700&family=Lateef:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@@phosphor-icons/web"></script>
@@ -39,21 +39,15 @@
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
                         serif: ['Lora', 'serif'],
-                        arabic: ['Amiri', 'serif'],
+                        arabic: ['var(--arabic-font)', 'Amiri', 'serif'],
                     }
                 }
             }
         }
     </script>
 
-    <style>
-        body {
-            background-color: #FAFAFA;
-            /* Premium ince desen */
-            background-image: radial-gradient(#2C3E50 0.5px, transparent 0.5px);
-            background-size: 40px 40px;
-        }
 
+    <style>
         /* Navbar Geçiş Animasyonu */
         #mainNav {
             transition: all 0.3s ease-in-out;
@@ -76,6 +70,18 @@
             100% { transform: scale(1); }
         }
         .fav-animate { animation: fav-pop 0.25s ease-out; }
+    </style>
+    <style>
+        :root {
+            --arabic-font: 'Noto Naskh Arabic', sans-serif;
+        }
+
+        body {
+            background-color: #FAFAFA;
+            /* Premium ince desen */
+            background-image: radial-gradient(#2C3E50 0.5px, transparent 0.5px);
+            background-size: 40px 40px;
+        }
     </style>
 
     @RenderSection("Styles", required: false)
@@ -251,7 +257,16 @@
 
 
     <footer class="w-full py-12 border-t border-gray-100 bg-white">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-8 p-6 bg-gray-50/50 rounded-3xl border border-gray-100/50 inline-block">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gri mb-4">Arapça Hat Tercihi</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="changeArabicFont('Noto Naskh Arabic')" class="font-switcher-btn px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-medium hover:border-yaprak transition-all" data-font="Noto Naskh Arabic">Bilgisayar Hattı</button>
+                    <button onclick="changeArabicFont('Amiri')" class="font-switcher-btn px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-medium hover:border-yaprak transition-all" data-font="Amiri">Mushaf-ı Şerif</button>
+                    <button onclick="changeArabicFont('Scheherazade New')" class="font-switcher-btn px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-medium hover:border-yaprak transition-all" data-font="Scheherazade New">Medine Hattı</button>
+                    <button onclick="changeArabicFont('Lateef')" class="font-switcher-btn px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-medium hover:border-yaprak transition-all" data-font="Lateef">Zarif Hat</button>
+                </div>
+            </div>
+
             <div class="mb-6 flex justify-center items-center gap-2 opacity-50 grayscale hover:grayscale-0 transition-all">
                  <i class="ph ph-book-open-text text-2xl"></i>
                  <span class="font-serif font-bold text-lg">Rehber</span>
@@ -451,6 +466,34 @@
                 box.remove();
             }, 2500);
         }
+
+        // ==========================================
+        // 5. ARAPÇA HAT DEĞİŞTİRME
+        // ==========================================
+        function changeArabicFont(fontName) {
+            // CSS Değişkenini Güncelle
+            document.documentElement.style.setProperty('--arabic-font', fontName);
+            
+            // Yerel Depolamaya Kaydet
+            localStorage.setItem('selectedArabicFont', fontName);
+
+            // Buton Görünümünü Güncelle
+            document.querySelectorAll('.font-switcher-btn').forEach(btn => {
+                if (btn.getAttribute('data-font') === fontName) {
+                    btn.classList.add('bg-yaprak', 'text-white', 'border-yaprak');
+                    btn.classList.remove('bg-white', 'text-antrasit', 'border-gray-200');
+                } else {
+                    btn.classList.remove('bg-yaprak', 'text-white', 'border-yaprak');
+                    btn.classList.add('bg-white', 'text-antrasit', 'border-gray-200');
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde tercihi uygula
+        window.addEventListener('load', () => {
+            const savedFont = localStorage.getItem('selectedArabicFont') || 'Noto Naskh Arabic';
+            changeArabicFont(savedFont);
+        });
     </script>
 
 
